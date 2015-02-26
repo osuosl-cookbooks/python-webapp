@@ -1,10 +1,13 @@
-# create-cookbook
+# python-webapp-cookbook/
 
-TODO: Enter the cookbook description here.
+A cookbook for deploying webapps like GWM, ORVSD, or the Seagrant twins.
+Design documentation is currently in a
+[google doc](https://docs.google.com/a/osuosl.org/document/d/1CsCxTWM7fc0iXT8Lu4BnRJWtYLuwI6a-LFfEa5_BJ2w/edit).
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+Centos 6
+Centos 7?
 
 ## Attributes
 
@@ -39,4 +42,7 @@ Include `create` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Authors::
+
+* Ian Kronquist
+* Evan Tschuy
