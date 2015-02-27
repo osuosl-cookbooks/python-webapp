@@ -34,3 +34,5 @@ platforms:
 
 suites:
 - name: default
+  run_list:
+    - recipe[python-webapp-test::default]
