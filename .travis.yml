@@ -3,6 +3,7 @@ sudo: false
 cache: bundler
 install:
   - bundle install --retry=3
+  - gem install rubocop foodcritic
 script:
   - bundle exec rubocop
   - bundle exec foodcritic -f any -t ~FC023 .
