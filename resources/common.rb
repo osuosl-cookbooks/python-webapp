@@ -18,3 +18,7 @@ attribute :config_template, 'kind_of' => String,
 attribute :config_destination, 'kind_of' => String,
                                :default => 'settings.py'
 attribute :config_vars, 'kind_of' => Hash
+
+# If this is set, install that requirements file. If it is not, install a
+# setup.py. If the setup.py does not exist, fail.
+attribute :requirements_file, 'kind_of' => String
