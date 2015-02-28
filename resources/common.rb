@@ -11,7 +11,7 @@ attribute :git_repo, 'kind_of' => String
 attribute :git_branch, 'kind_of' => String, :default => 'master'
 
 attribute :config_template, 'kind_of' => String,
-                            :default => 'templates/default/settings.py.erb'
+                            :default => 'settings.py.erb'
 attribute :config_destination, 'kind_of' => String,
-                               :default => '/opt/app/settings.py'
+                               :default => 'settings.py'
 attribute :config_vars, 'kind_of' => Hash
