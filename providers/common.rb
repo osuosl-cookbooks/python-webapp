@@ -6,12 +6,11 @@ action :install do
     checkout_branch new_resource.git_branch
     owner new_resource.owner
     group new_resource.group
-    mode new_resource.mode
   end
 
   # If a config file template has been specified, create it.
-  if new_resource.config_template
-    template new_resource.config_template do
+  template new_resource.config_template do
+      only_if { new_resource.config_template != nil }
       action :create
       source new_resource.config_template
       path new_resource.config_destination
