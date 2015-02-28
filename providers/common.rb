@@ -4,7 +4,8 @@ action :install do
     action :sync
     repository new_resource.git_repo
     checkout_branch new_resource.git_branch
-    owner new_resource.owner
+    destination new_resource.path
+    user new_resource.owner
     group new_resource.group
   end
 
@@ -19,7 +20,6 @@ action :install do
       group new_resource.group
       mode new_resource.mode
     end
-  end
 
   # Install the application requirements.
   # If a requirements file has been specified, use pip.
@@ -37,4 +37,5 @@ action :install do
       code "python #{new_resource.path}/setup.py install"
     end
   end
+  new_resource.updated_by_last_action(true)
 end
