@@ -18,20 +18,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   $ vagrant plugin install vagrant-omnibus
   #
-  if Vagrant.has_plugin?
-    config.omnibus.chef_version = 'latest'
-  end
+  config.omnibus.chef_version = 'latest' if Vagrant.has_plugin?
 
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
   config.vm.box = 'chef/ubuntu-14.04'
 
-
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
+  # any other machines on the same network, but cannot be accessed (through
+  # this network interface) by any external networks.
   config.vm.network :private_network, type: 'dhcp'
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -62,16 +59,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The path to the Berksfile to use with Vagrant Berkshelf
   # config.berkshelf.berksfile_path = "./Berksfile"
 
-  # Enabling the Berkshelf plugin. To enable this globally, add this configuration
-  # option to your ~/.vagrant.d/Vagrantfile file
+  # Enabling the Berkshelf plugin. To enable this globally, add this
+  # configuration option to your ~/.vagrant.d/Vagrantfile file
   config.berkshelf.enabled = true
 
-  # An array of symbols representing groups of cookbook described in the Vagrantfile
-  # to exclusively install and copy to Vagrant's shelf.
+  # An array of symbols representing groups of cookbook described in the
+  # Vagrantfile to exclusively install and copy to Vagrant's shelf.
   # config.berkshelf.only = []
 
-  # An array of symbols representing groups of cookbook described in the Vagrantfile
-  # to skip installing and copying to Vagrant's shelf.
+  # An array of symbols representing groups of cookbook described in the
+  # Vagrantfile to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
