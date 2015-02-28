@@ -7,6 +7,7 @@ default_action :install
 attribute :path, 'kind_of' => String, :default => '/opt/app/'
 attribute :owner, 'kind_of' => String, :default => 'chef'
 attribute :group, 'kind_of' => String, :default => 'chef'
+attribute :mode, 'kind_of' => String, :default => '0755'
 
 # The information necessary to check out the code
 attribute :git_repo, 'kind_of' => String
