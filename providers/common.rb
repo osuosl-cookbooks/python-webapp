@@ -24,15 +24,16 @@ action :install do
 
   # Install the application requirements.
   # If a requirements file has been specified, use pip.
-  # otherwise use the setup.py 
+  # otherwise use the setup.py
   # FIXME: Should we use something other than the bash resource?
   if new_resource.requirements_file
-    bash "pip install" do
+    bash 'pip install' do
       action :run
-      code "pip install -r #{new_resource.path}/#{new_resource.requirements_file}"
+      code "pip install -r \
+            #{new_resource.path}/#{new_resource.requirements_file}"
     end
   else
-    bash "python setup.py" do
+    bash 'python setup.py' do
       action :run
       code "python #{new_resource.path}/setup.py install"
     end
