@@ -10,4 +10,5 @@ action :setup do
     action :run
     code "python #{ new_resource.path }/manage.py migrate"
   end
+  new_resource.updated_by_last_action(true)
 end
