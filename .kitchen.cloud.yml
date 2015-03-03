@@ -23,8 +23,6 @@ provisioner:
           - centos
           - ubuntu
           - fedora
-    omnibus_updater:
-      disabled: true
 
 platforms:
 - name: centos-6.6
@@ -36,5 +34,3 @@ platforms:
 
 suites:
 - name: default
-  run_list:
-  attributes:
