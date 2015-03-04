@@ -1,1 +1,1 @@
-A test cookbook for tests.
+A cookbook containing tests for the python-webapp cookbook.
