@@ -1,4 +1,4 @@
-# python-webapp-cookbook/
+# python-webapp
 
 A cookbook for deploying webapps like GWM, ORVSD, or the Seagrant twins.
 Design documentation is currently in a
