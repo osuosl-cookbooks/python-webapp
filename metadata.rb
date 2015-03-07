@@ -1,4 +1,4 @@
-name 'python-webapp-cookbook'
+name 'python-webapp'
 maintainer 'OSU Open Source Lab'
 maintainer_email 'support@osuosl.org'
 license 'Apache v2'
