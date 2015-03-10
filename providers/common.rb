@@ -2,8 +2,8 @@ action :install do
   # Update the code.
   git new_resource.path do
     action :sync
-    repository new_resource.git_repo
-    checkout_branch new_resource.git_branch
+    repository new_resource.repository
+    checkout_branch new_resource.revision
     destination new_resource.path
     user new_resource.owner
     group new_resource.group

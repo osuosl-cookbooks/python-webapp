@@ -7,8 +7,8 @@ attribute :owner, 'kind_of' => String, :default => 'chef'
 attribute :group, 'kind_of' => String, :default => 'chef'
 
 # The information necessary to check out the code
-attribute :git_repo, 'kind_of' => String
-attribute :git_branch, 'kind_of' => String, :default => 'master'
+attribute :repository, 'kind_of' => String
+attribute :revision, 'kind_of' => String, :default => 'master'
 
 # Specify the config file template, destination on the node, and variables
 # If :config_template is nil, do nothing
