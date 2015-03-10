@@ -15,7 +15,7 @@ action :install do
     action :create
     source new_resource.config_template
     path new_resource.config_destination
-    variables new_resource.variables
+    variables new_resource.config_vars
     owner new_resource.owner
     group new_resource.group
     mode new_resource.mode
