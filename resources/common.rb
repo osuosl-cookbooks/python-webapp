@@ -1,5 +1,3 @@
-require 'git'
-
 actions :install
 default_action :install
 
