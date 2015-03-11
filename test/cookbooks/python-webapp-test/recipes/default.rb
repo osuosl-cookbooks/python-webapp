@@ -16,9 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'python-webapp'
-include_recipe 'yum'
-
 package 'git'
 
 settings_hash = {
@@ -29,8 +26,6 @@ settings_hash = {
   db_name: 'database',
   secret_key: 'abcd'
 }
-
-log 'rinning cookbook'
 
 python_webapp_common 'whats_fresh' do
   create_user true
