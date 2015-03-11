@@ -1,4 +1,15 @@
 action :install do
+
+  if new_resource.create_user
+    group new_resource.group do
+      action :create
+    end
+    user new_resource.owner do
+      action :create
+      gid new_resource.group
+    end
+  end
+
   # Update the code.
   git new_resource.path do
     action :sync
