@@ -15,3 +15,34 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+include_recipe 'python-webapp'
+include_recipe 'yum'
+
+package 'git'
+
+settings_hash = {
+  host: 'db.example.com',
+  port: '5432',
+  username: 'user',
+  password: 'pass',
+  db_name: 'database',
+  secret_key: 'abcd'
+}
+
+log 'rinning cookbook'
+
+python_webapp_common 'whats_fresh' do
+  create_user true
+  path '/opt/whats_fresh'
+  owner 'whats_fresh'
+  group 'whats_fresh'
+
+  repository 'https://github.com/osu-cass/whats-fresh-api.git'
+  revision 'master'
+
+  config_template 'config.yml.erb'
+  config_destination '/opt/whats_fresh/config.yml'
+  config_vars settings_hash
+  requirements_file nil
+end
