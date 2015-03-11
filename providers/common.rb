@@ -28,7 +28,7 @@ action :install do
 
   # If a config file template has been specified, create it.
   template new_resource.config_template do
-    only_if { !new_resource.config_template.nil }
+    only_if { new_resource.config_template != nil }
     action :create
     source new_resource.config_template
     path new_resource.config_destination
@@ -40,7 +40,7 @@ action :install do
   # Install the application requirements.
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
-  if new_resource.requirements_file
+  if new_resource.requirements_file != ''
     execute 'pip install' do
       action :run
       cwd new_resource.path
