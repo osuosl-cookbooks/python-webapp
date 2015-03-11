@@ -28,7 +28,7 @@ action :install do
 
   # If a config file template has been specified, create it.
   template new_resource.config_template do
-    only_if { new_resource.config_template != nil }
+    only_if { !new_resource.config_template.nil? }
     action :create
     source new_resource.config_template
     path new_resource.config_destination
