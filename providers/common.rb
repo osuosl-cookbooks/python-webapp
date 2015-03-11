@@ -18,7 +18,6 @@ action :install do
     variables new_resource.config_vars
     owner new_resource.owner
     group new_resource.group
-    mode new_resource.mode
   end
 
   # Install the application requirements.
