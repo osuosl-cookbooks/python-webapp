@@ -10,6 +10,12 @@ action :install do
     end
   end
 
+  directory new_resource.path do
+    action :create
+    owner new_resource.owner
+    group new_resource.group
+  end
+
   # Update the code.
   git new_resource.path do
     action :sync
