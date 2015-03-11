@@ -1,6 +1,9 @@
 actions :install
 default_action :install
 
+# Creates the user if they do not already exist
+attribute :create_user, 'kind_of' => [TrueClass, FalseClass], :default => false
+
 # Create the owner, path, or group if they do not exist
 attribute :path, 'kind_of' => String, :default => '/opt/app/'
 attribute :owner, 'kind_of' => String, :default => 'chef'
