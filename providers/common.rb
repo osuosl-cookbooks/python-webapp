@@ -1,3 +1,5 @@
+include_recipe 'git'
+
 action :install do
 
   if new_resource.create_user
