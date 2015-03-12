@@ -1,6 +1,6 @@
-include_recipe 'git'
-
 action :install do
+  # Use the git recipe to install git
+  run_context.include_recipe 'git'
 
   if new_resource.create_user
     group new_resource.group do
@@ -15,10 +15,12 @@ action :install do
   # If the new_resource.path is nil set the install path to
   # `/opt/name_attribute`
   if new_resource.path.nil?
-    new_resource.path = "/opt/#{ new_resource.name_attribute }"
+    path = "/opt/#{ new_resource.name }"
+  else
+    path = new_resource.path
   end
 
-  directory new_resource.path do
+  directory path do
     action :create
     owner new_resource.owner
     group new_resource.group
@@ -32,11 +34,11 @@ action :install do
   end
 
   # Update the code.
-  git new_resource.path do
+  git path do
     action :sync
     repository new_resource.repository
     checkout_branch new_resource.revision
-    destination new_resource.path
+    destination path
     user new_resource.owner
     group new_resource.group
   end
@@ -56,7 +58,7 @@ action :install do
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
   if new_resource.requirements_file.nil?
-    python_pip "#{ new_resource.path }/#{ new_resource.requirements_file }" do
+    python_pip "#{ path }/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
       virtualenv new_resource.virtualenv_path
@@ -64,7 +66,7 @@ action :install do
   else
     execute 'python setup.py install' do
       action :run
-      cwd new_resource.path
+      cwd path
     end
   end
   new_resource.updated_by_last_action(true)

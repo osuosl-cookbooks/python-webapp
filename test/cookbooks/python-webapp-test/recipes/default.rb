@@ -29,7 +29,6 @@ settings_hash = {
 
 python_webapp_common 'whats_fresh' do
   create_user true
-  path '/opt/whats_fresh'
   owner 'whats_fresh'
   group 'whats_fresh'
 

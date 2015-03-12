@@ -2,7 +2,8 @@ actions :install
 default_action :install
 
 # Name the resource
-attribute :name_attribute, 'kind_of' => String, :required => true
+attribute :name, :name_attribute => true, 'kind_of' => String,
+                 :required => true
 
 # Creates the user if they do not already exist
 attribute :create_user, 'kind_of' => [TrueClass, FalseClass], :default => false
@@ -18,7 +19,7 @@ attribute :repository, 'kind_of' => String
 attribute :revision, 'kind_of' => String, :default => 'master'
 
 # Location of the virtualenv
-attribute :virtualenv_path, 'kind_of' => Specify, :destination => '/opt/venv'
+attribute :virtualenv_path, 'kind_of' => String, :destination => '/opt/venv'
 
 # Specify the config file template, destination on the node, and variables
 # If :config_template is nil, do nothing
