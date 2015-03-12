@@ -34,10 +34,8 @@ python_webapp_common 'whats_fresh' do
   group 'whats_fresh'
 
   repository 'https://github.com/osu-cass/whats-fresh-api.git'
-  revision 'master'
 
   config_template 'config.yml.erb'
   config_destination '/opt/whats_fresh/config.yml'
   config_vars settings_hash
-  requirements_file nil
 end
