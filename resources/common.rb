@@ -13,6 +13,9 @@ attribute :group, 'kind_of' => String, :default => 'chef'
 attribute :repository, 'kind_of' => String
 attribute :revision, 'kind_of' => String, :default => 'master'
 
+# Location of the virtualenv
+attribute :virtualenv_path, 'kind_of' => Specify, :destination => '/opt/venv'
+
 # Specify the config file template, destination on the node, and variables
 # If :config_template is nil, do nothing
 attribute :config_template, 'kind_of' => [String, NilClass],

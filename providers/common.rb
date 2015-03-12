@@ -18,6 +18,13 @@ action :install do
     group new_resource.group
   end
 
+  # Create virtual environment
+  python_virtualenv new_resource.virtualenv_path do
+    owner new_resource.owner
+    group new_resource.group
+    action :create
+  end
+
   # Update the code.
   git new_resource.path do
     action :sync
@@ -43,10 +50,10 @@ action :install do
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
   if new_resource.requirements_file.nil?
-    execute 'pip install' do
-      action :run
-      cwd new_resource.path
-      command "pip install -r #{new_resource.requirements_file}"
+    python_pip "#{ new_resource.path }/#{ new_resource.requirements_file }" do
+      action :install
+      options '-r'
+      virtualenv new_resource.virtualenv_path
     end
   else
     execute 'python setup.py install' do
