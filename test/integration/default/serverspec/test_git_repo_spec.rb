@@ -5,14 +5,12 @@ describe file('/opt/app/') do
   it { should be_directory }
   it { should be_grouped_into 'chef' }
   it { should be_readable.by('chef') }
-  it { should be_readable.by('chef') }
 end
 
 # Test that the git repository is actually a git repository
 describe file('/opt/app/.git') do
   it { should be_directory }
   it { should be_grouped_into 'chef' }
-  it { should be_readable.by('chef') }
   it { should be_readable.by('chef') }
 end
 

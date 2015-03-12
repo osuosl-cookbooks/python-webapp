@@ -5,5 +5,4 @@ describe file('/opt/venv/') do
   it { should be_directory }
   it { should be_grouped_into 'chef' }
   it { should be_readable.by('chef') }
-  it { should be_readable.by('chef') }
 end
