@@ -1,11 +1,15 @@
 actions :install
 default_action :install
 
+# Name the resource
+attribute :name_attribute, 'kind_of' => String, :required => true
+
 # Creates the user if they do not already exist
 attribute :create_user, 'kind_of' => [TrueClass, FalseClass], :default => false
 
 # Create the owner, path, or group if they do not exist
-attribute :path, 'kind_of' => String, :default => '/opt/app/'
+# If path is nil it will default to '/opt/<name_attribute>'
+attribute :path, 'kind_of' => [String, nil], :default => nil
 attribute :owner, 'kind_of' => String, :default => 'chef'
 attribute :group, 'kind_of' => String, :default => 'chef'
 

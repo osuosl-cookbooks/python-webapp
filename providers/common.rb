@@ -12,6 +12,12 @@ action :install do
     end
   end
 
+  # If the new_resource.path is nil set the install path to
+  # `/opt/name_attribute`
+  if new_resource.path.nil?
+    new_resource.path = "/opt/#{ new_resource.name_attribute }"
+  end
+
   directory new_resource.path do
     action :create
     owner new_resource.owner
