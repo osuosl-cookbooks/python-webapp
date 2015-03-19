@@ -34,3 +34,14 @@ python_webapp_common 'whats_fresh' do
     secret_key: 'abcd'
   )
 end
+
+python_webapp_common 'working_waterfronts' do
+  create_user true
+  owner 'working_waterfronts'
+  group 'working_waterfronts'
+
+  path '/opt/working_h2ofronts'
+  virtualenv_path '/opt/venv_h2o'
+  repository 'https://github.com/osu-cass/working-waterfronts-api.git'
+  revision 'eb41412731f16f3'
+end
