@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: create
+# Cookbook Name:: python-webapp
 # Recipe:: default
 #
-# Copyright (C) 2015 YOUR_NAME
+# Copyright (C) 2015 OSU Open Source Lab
 #
-# All rights reserved - Do Not Redistribute
+# Apache 2 License
 #
