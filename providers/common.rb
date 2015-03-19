@@ -60,7 +60,7 @@ action :install do
   # Install the application requirements.
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
-  if new_resource.requirements_file.nil?
+  if !new_resource.requirements_file.nil?
     python_pip "#{ path }/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
