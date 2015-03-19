@@ -1,10 +1,6 @@
 actions :install
 default_action :install
 
-# Name the resource
-attribute :name, :name_attribute => true, 'kind_of' => String,
-                 :required => true
-
 # Creates the user if they do not already exist
 attribute :create_user, 'kind_of' => [TrueClass, FalseClass], :default => false
 
