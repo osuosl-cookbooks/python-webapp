@@ -6,7 +6,7 @@ attribute :create_user, 'kind_of' => [TrueClass, FalseClass], :default => false
 
 # Create the owner, path, or group if they do not exist
 # If path is nil it will default to '/opt/<name_attribute>'
-attribute :path, 'kind_of' => [String, nil], :default => nil
+attribute :path, 'kind_of' => [String, NilClass], :default => nil
 attribute :owner, 'kind_of' => String, :default => 'chef'
 attribute :group, 'kind_of' => String, :default => 'chef'
 
