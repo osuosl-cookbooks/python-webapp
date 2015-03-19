@@ -16,22 +16,19 @@ action :install do
 
   # If the new_resource.path is nil set the install path to
   # `/opt/name_attribute`
-  if new_resource.path.nil?
-    path = "/opt/#{ new_resource.name }"
-  else
-    path = new_resource.path
-  end
+  path = new_resource.path || "/opt/#{ new_resource.name }"
 
   # If the config_destination is nil, as by default, default to
   # /opt/<path>/settings.py
   if new_resource.config_destination.nil?
-    config_destination = "/opt/#{ path }/settings.py"
+    config_destination = "#{ path }/settings.py"
   else
     config_destination = new_resource.config_destination
   end
 
   directory path do
     action :create
+    recursive true
     owner new_resource.owner
     group new_resource.group
   end
@@ -58,7 +55,7 @@ action :install do
     only_if { !new_resource.config_template.nil? }
     action :create
     source new_resource.config_template
-    path new_resource.config_destination
+    path config_destination
     variables new_resource.config_vars
     owner new_resource.owner
     group new_resource.group
@@ -67,17 +64,18 @@ action :install do
   # Install the application requirements.
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
-  if !new_resource.requirements_file.nil?
+  if new_resource.requirements_file.nil?
+    execute 'python setup.py install' do
+      action :run
+      cwd path
+    end
+  else
     python_pip "#{ path }/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
       virtualenv new_resource.virtualenv_path
     end
-  else
-    execute 'python setup.py install' do
-      action :run
-      cwd path
-    end
   end
+
   new_resource.updated_by_last_action(true)
 end
