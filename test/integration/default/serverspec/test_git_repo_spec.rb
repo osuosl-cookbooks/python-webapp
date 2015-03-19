@@ -22,15 +22,15 @@ end
 # Test that the git repository's directory is properly set up
 describe file('/opt/working_h2ofronts/') do
   it { should be_directory }
-  it { should be_grouped_into 'working_waterfronts' }
-  it { should be_owned_by('working_waterfronts') }
+  it { should be_grouped_into 'chef' }
+  it { should be_owned_by('chef') }
 end
 
 # Test that the git repository is actually a git repository
 describe file('/opt/working_h2ofronts/.git') do
   it { should be_directory }
-  it { should be_grouped_into 'working_waterfronts' }
-  it { should be_owned_by('working_waterfronts') }
+  it { should be_grouped_into 'chef' }
+  it { should be_owned_by('chef') }
 end
 
 # Test that the right revision has been checked out

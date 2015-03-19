@@ -16,6 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+group 'chef' do
+  action :create
+end
+
+user 'chef' do
+  action :create
+  gid 'chef'
+end
+
 python_webapp_common 'whats_fresh' do
   create_user true
   owner 'whats_fresh'
@@ -36,10 +45,6 @@ python_webapp_common 'whats_fresh' do
 end
 
 python_webapp_common 'working_waterfronts' do
-  create_user true
-  owner 'working_waterfronts'
-  group 'working_waterfronts'
-
   path '/opt/working_h2ofronts'
   virtualenv_path '/opt/venv_h2o'
   repository 'https://github.com/osu-cass/working-waterfronts-api.git'
