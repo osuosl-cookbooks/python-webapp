@@ -16,16 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-settings_hash = {
-  host: 'db.example.com',
-  port: '5432',
-  username: 'user',
-  password: 'pass',
-  db_name: 'database',
-  secret_key: 'abcd'
-}
-
 python_webapp_common 'whats_fresh' do
   create_user true
   owner 'whats_fresh'
@@ -35,5 +25,12 @@ python_webapp_common 'whats_fresh' do
 
   config_template 'config.yml.erb'
   config_destination '/opt/whats_fresh/config.yml'
-  config_vars settings_hash
+  config_vars(
+    host: 'db.example.com',
+    port: '5432',
+    username: 'user',
+    password: 'pass',
+    db_name: 'database',
+    secret_key: 'abcd'
+  )
 end
