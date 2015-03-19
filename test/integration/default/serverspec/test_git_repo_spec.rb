@@ -18,3 +18,22 @@ end
 describe file('/opt/whats_fresh/.git/HEAD') do
   its(:content) { should match(/master/) }
 end
+
+# Test that the git repository's directory is properly set up
+describe file('/opt/working_h2ofronts/') do
+  it { should be_directory }
+  it { should be_grouped_into 'working_waterfronts' }
+  it { should be_owned_by('working_waterfronts') }
+end
+
+# Test that the git repository is actually a git repository
+describe file('/opt/working_h2ofronts/.git') do
+  it { should be_directory }
+  it { should be_grouped_into 'working_waterfronts' }
+  it { should be_owned_by('working_waterfronts') }
+end
+
+# Test that the right revision has been checked out
+describe file('/opt/working_h2ofronts/.git/HEAD') do
+  its(:content) { should match(/eb41412731f16f3/) }
+end
