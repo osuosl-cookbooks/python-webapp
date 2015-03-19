@@ -24,7 +24,7 @@ python_webapp_common 'whats_fresh' do
   repository 'https://github.com/osu-cass/whats-fresh-api.git'
 
   config_template 'config.yml.erb'
-  config_destination '/opt/whats_fresh/config.yml'
+  config_destination '/opt/whats_fresh/whats_fresh/config.yml'
   config_vars(
     host: 'db.example.com',
     port: '5432',
