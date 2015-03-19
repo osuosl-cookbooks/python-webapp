@@ -1,9 +1,8 @@
-
 action :install do
   # Use the git recipe to install git
   run_context.include_recipe 'git'
-  run_context.include_recipe "python::pip"
-  run_context.include_recipe "python::virtualenv"
+  run_context.include_recipe 'python::pip'
+  run_context.include_recipe 'python::virtualenv'
 
   if new_resource.create_user
     group new_resource.group do
