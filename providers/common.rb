@@ -18,6 +18,12 @@ action :install do
   # `/opt/name_attribute`
   path = new_resource.path || "/opt/#{ new_resource.name }"
 
+  if new_resource.virtualenv_path.nil?
+    virtualenv_path = "opt/venv_#{ new_resource.name }"
+  else
+    virtualenv_path = new_resource.virtualenv_path
+  end
+
   # If the config_destination is nil, as by default, default to
   # /opt/<path>/settings.py
   if new_resource.config_destination.nil?
@@ -34,7 +40,7 @@ action :install do
   end
 
   # Create virtual environment
-  python_virtualenv new_resource.virtualenv_path do
+  python_virtualenv virtualenv_path do
     owner new_resource.owner
     group new_resource.group
     action :create
@@ -73,7 +79,7 @@ action :install do
     python_pip "#{ path }/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
-      virtualenv new_resource.virtualenv_path
+      virtualenv virtualenv_path
     end
   end
 
