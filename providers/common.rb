@@ -22,6 +22,14 @@ action :install do
     path = new_resource.path
   end
 
+  # If the config_destination is nil, as by default, default to
+  # /opt/<path>/settings.py
+  if new_resource.config_destination.nil?
+    config_destination = "/opt/#{ path }/settings.py"
+  else
+    config_destination = new_resource.config_destination
+  end
+
   directory path do
     action :create
     owner new_resource.owner

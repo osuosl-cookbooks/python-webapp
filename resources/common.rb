@@ -25,9 +25,8 @@ attribute :virtualenv_path, 'kind_of' => String, :default => '/opt/venv'
 # If :config_template is nil, do nothing
 attribute :config_template, 'kind_of' => [String, NilClass],
                             :default => 'settings.py.erb'
-# The destination is an absolute path
-attribute :config_destination, 'kind_of' => String,
-                               :default => '/opt/app/settings.py'
+# The destination is an absolute path, or nil
+attribute :config_destination, 'kind_of' => [String, NilClass], :default => nil
 attribute :config_vars, 'kind_of' => Hash
 
 # If this is set, install that requirements file. If it is not, install a
