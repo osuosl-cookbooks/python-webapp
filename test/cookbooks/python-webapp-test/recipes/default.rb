@@ -16,6 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Required for What's Fresh
+package 'postgresql-devel'
+package 'python-devel'
+package 'gcc'
+
 group 'chef' do
   action :create
 end
