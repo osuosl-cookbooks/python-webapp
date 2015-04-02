@@ -19,7 +19,7 @@ action :install do
   path = new_resource.path || "/opt/#{ new_resource.name }"
 
   if new_resource.virtualenv_path.nil?
-    virtualenv_path = "opt/venv_#{ new_resource.name }"
+    virtualenv_path = "/opt/venv_#{ new_resource.name }"
   else
     virtualenv_path = new_resource.virtualenv_path
   end
@@ -41,6 +41,7 @@ action :install do
 
   # Create virtual environment
   python_virtualenv virtualenv_path do
+    interpreter new_resource.interpreter
     owner new_resource.owner
     group new_resource.group
     action :create
@@ -71,15 +72,42 @@ action :install do
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
   if new_resource.requirements_file.nil?
-    execute 'python setup.py install' do
-      action :run
+    bash "Install python dependencies" do
+      user new_resource.owner
       cwd path
+      code <<-EOH
+        #{virtualenv_path}/bin/python setup.py install
+      EOH
     end
+
   else
     python_pip "#{ path }/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
       virtualenv virtualenv_path
+    end
+  end
+
+  # Run django migrations if the django_migrate flag is set
+  if new_resource.django_migrate
+    bash "run migrations" do
+      user new_resource.owner
+      cwd path
+      code <<-EOH
+        #{virtualenv_path}/bin/python manage.py migrate --noinput
+      EOH
+    end
+  end
+
+  # Run the django collectstatic command if the django_collectstatic flag
+  # is set
+  if new_resource.django_collectstatic
+    bash "collect static resources" do
+      user new_resource.owner
+      cwd path
+      code <<-EOH
+        #{virtualenv_path}/bin/python manage.py collectstatic --noinput
+      EOH
     end
   end
 

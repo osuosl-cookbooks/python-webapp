@@ -1,4 +1,3 @@
-actions :install
 default_action :install
 
 # Creates the user if they do not already exist
@@ -28,3 +27,12 @@ attribute :config_vars, 'kind_of' => Hash
 # If this is set, install that requirements file. If it is not, install a
 # setup.py. If the setup.py does not exist, fail.
 attribute :requirements_file, 'kind_of' => [String, NilClass], :default => nil
+
+# These attributes will only work for Django apps
+attribute :django_migrate, 'kind_of' => [TrueClass, FalseClass],
+          :default => false
+
+attribute :django_collectstatic, 'kind_of' => [TrueClass, FalseClass],
+          :default => false
+
+attribute :interpreter, 'kind_of' => String, :default => 'python'
