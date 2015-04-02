@@ -48,7 +48,7 @@ end
 desc 'Run all tests (style, spec, integration) on Openstack'
 task :openstack => ['style', 'spec', 'integration:cloud']
 
-desc 'Run style and spec tests on Travis'
+desc 'Run style and spec tests (for Travis)'
 task :travis => ['style', 'spec']
 
 # Default
