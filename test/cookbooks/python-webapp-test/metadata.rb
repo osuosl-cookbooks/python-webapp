@@ -8,3 +8,6 @@ version '1.0.0'
 
 depends 'python-webapp'
 depends 'yum'
+depends 'yum-epel'
+depends 'yum-ius'
+depends 'yum-osuosl'
