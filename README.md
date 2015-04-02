@@ -9,36 +9,25 @@ Design documentation is currently in a
 Centos 6
 Centos 7?
 
-## Attributes
+## Running tests
 
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['create']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+### Running integration tests
 
-## Usage
+[Detailed instructions](https://github.com/osuosl-cookbooks/python-webapp/wiki/Development-Workflow#using-your-virtual-machine)
 
-### create::default
-
-Include `create` in your node's `run_list`:
-
-```json
-{
-  "run_list": [
-    "recipe[create::default]"
-  ]
-}
 ```
+$ kitchen converge [test suite]
+$ kitchen verify [test suite]
+```
+
+### Running unit tests
+
+[Detailed instructions](https://github.com/osuosl-cookbooks/python-webapp/wiki/Development-Workflow#writing-a-chefspec-unit-test)
+
+```
+$ rspec
+```
+
 
 ## License and Authors
 
@@ -46,3 +35,4 @@ Authors::
 
 * Ian Kronquist
 * Evan Tschuy
+* Elijah Caine
