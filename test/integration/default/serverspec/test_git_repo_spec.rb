@@ -16,7 +16,7 @@ end
 
 # Test that the right revision has been checked out
 describe file('/opt/whats_fresh/.git/HEAD') do
-  its(:content) { should match(/master/) }
+  its(:content) { should match(/cookbook_test/) }
 end
 
 # Test that the git repository's directory is properly set up
@@ -35,5 +35,5 @@ end
 
 # Test that the right revision has been checked out
 describe file('/opt/working_h2ofronts/.git/HEAD') do
-  its(:content) { should match(/eb41412731f16f3/) }
+  its(:content) { should match(/django/) }
 end
