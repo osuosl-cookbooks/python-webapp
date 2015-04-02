@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'python-webapp-test::default' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-        step_into: ['python_webapp']).converge(described_recipe)
+      step_into: ['python_webapp']).converge(described_recipe)
   end
 
   it 'checks out Whats Fresh and Working Waterfronts' do
