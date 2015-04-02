@@ -11,13 +11,13 @@ namespace :style do
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
     t.options = {
-      :fail_tags => ['any']
+      fail_tags: ['any']
     }
   end
 end
 
 desc 'Run all style checks'
-task :style => ['style:chef', 'style:ruby']
+task style: ['style:chef', 'style:ruby']
 
 # Rspec and ChefSpec
 desc 'Run ChefSpec tests'
@@ -36,8 +36,8 @@ namespace :integration do
   desc 'Run Test Kitchen with cloud plugins'
   task :cloud do
     Kitchen.logger = Kitchen.default_file_logger
-    @loader = Kitchen::Loader::YAML.new(:project_config => './.kitchen.cloud.yml')
-    config = Kitchen::Config.new(:loader => @loader)
+    @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.cloud.yml')
+    config = Kitchen::Config.new(loader: @loader)
     config.instances.each do |instance|
       instance.test(:always)
     end
@@ -45,10 +45,10 @@ namespace :integration do
 end
 
 desc 'Run all tests (style, spec, integration) on Openstack'
-task :cloud => ['style', 'spec', 'integration:cloud']
+task cloud: ['style', 'spec', 'integration:cloud']
 
 desc 'Run style and spec tests (for Travis)'
-task :travis => ['style', 'spec']
+task travis: %w(style spec)
 
 # Default
-task :default => ['style', 'spec', 'integration:vagrant']
+task default: ['style', 'spec', 'integration:vagrant']
