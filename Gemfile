@@ -22,4 +22,3 @@ gem 'busser'
 gem 'chefspec'
 gem 'rspec'
 gem 'rake'
-
