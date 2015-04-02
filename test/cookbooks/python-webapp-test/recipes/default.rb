@@ -65,7 +65,6 @@ python_webapp 'working_waterfronts' do
 end
 
 python_webapp 'pgd' do
-  create_user true
   path nil
   requirements_file 'special_requirements.txt'
 
