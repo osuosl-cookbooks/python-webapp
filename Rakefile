@@ -21,7 +21,7 @@ desc 'Run all style checks'
 task :style => ['style:chef', 'style:ruby']
 
 # Rspec and ChefSpec
-desc 'Run ChefSpec examples'
+desc 'Run ChefSpec tests'
 RSpec::Core::RakeTask.new(:spec)
 
 # Integration tests. Kitchen.ci
@@ -36,24 +36,20 @@ namespace :integration do
 
   desc 'Run Test Kitchen with cloud plugins'
   task :cloud do
-    run_kitchen = true
-    if ENV['TRAVIS'] == 'true' && ENV['TRAVIS_PULL_REQUEST'] != 'false'
-      run_kitchen = false
-    end
-
-    if run_kitchen
-      Kitchen.logger = Kitchen.default_file_logger
-      @loader = Kitchen::Loader::YAML.new(:project_config => './.kitchen.cloud.yml')
-      config = Kitchen::Config.new(:loader => @loader)
-      config.instances.each do |instance|
-        instance.test(:always)
-      end
+    Kitchen.logger = Kitchen.default_file_logger
+    @loader = Kitchen::Loader::YAML.new(:project_config => './.kitchen.cloud.yml')
+    config = Kitchen::Config.new(:loader => @loader)
+    config.instances.each do |instance|
+      instance.test(:always)
     end
   end
 end
 
-desc 'Run all tests on Travis'
-task :travis => ['style', 'spec', 'integration:cloud']
+desc 'Run all tests (style, spec, integration) on Openstack'
+task :openstack => ['style', 'spec', 'integration:cloud']
+
+desc 'Run style and spec tests on Travis'
+task :travis => ['style', 'spec']
 
 # Default
 task :default => ['style', 'spec', 'integration:vagrant']
