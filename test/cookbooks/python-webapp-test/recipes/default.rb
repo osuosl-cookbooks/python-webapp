@@ -63,3 +63,17 @@ python_webapp 'working_waterfronts' do
   revision 'django'
   requirements_file nil
 end
+
+python_webapp 'pgd' do
+  create_user true
+  path nil
+  requirements_file 'special_requirements.txt'
+
+  django_migrate false
+  django_collectstatic false
+
+  repository 'https://github.com/osuosl/python-test-apps.git'
+
+  config_template nil
+  revision 'cookbook_test' # set this to nil
+end
