@@ -16,10 +16,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Required for What's Fresh
-package 'postgresql-devel'
-package 'python-devel'
-package 'gcc'
+include_recipe 'yum-ius'
+include_recipe 'yum-epel'
+
+%w(gcc python27 python27-devel python27-pip).each do |pkg|
+  package pkg
+end
 
 group 'chef' do
   action :create
@@ -30,28 +32,35 @@ user 'chef' do
   gid 'chef'
 end
 
-python_webapp_common 'whats_fresh' do
+path = '/opt/whats_fresh/'
+
+hash = {
+  'path' => path,
+  'engine' => 'django.db.backends.sqlite3',
+  'dbname' => "#{path}/yourdatabasename.db",
+}
+
+
+python_webapp 'whats_fresh' do
   create_user true
   owner 'whats_fresh'
   group 'whats_fresh'
 
-  repository 'https://github.com/osu-cass/whats-fresh-api.git'
+  repository 'https://github.com/osuosl/python-test-apps.git'
 
   config_template 'config.yml.erb'
-  config_destination '/opt/whats_fresh/whats_fresh/config.yml'
-  config_vars(
-    host: 'db.example.com',
-    port: '5432',
-    username: 'user',
-    password: 'pass',
-    db_name: 'database',
-    secret_key: 'abcd'
-  )
+  config_destination "#{path}/config.yml"
+  config_vars hash
+  django_migrate true
+  django_collectstatic true
+  interpreter 'python2.7'
+  revision 'cookbook_test'
 end
 
-python_webapp_common 'working_waterfronts' do
+python_webapp 'working_waterfronts' do
   path '/opt/working_h2ofronts'
   virtualenv_path '/opt/venv_h2o'
-  repository 'https://github.com/osu-cass/working-waterfronts-api.git'
-  revision 'eb41412731f16f3'
+  repository 'https://github.com/osuosl/python-test-apps.git'
+  revision 'django'
+  requirements_file nil
 end
