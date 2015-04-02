@@ -32,7 +32,7 @@ user 'chef' do
   gid 'chef'
 end
 
-path = '/opt/whats_fresh/'
+path = '/opt/whats_fresh'
 
 hash = {
   'path' => path,
