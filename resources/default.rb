@@ -30,9 +30,9 @@ attribute :requirements_file, 'kind_of' => [String, NilClass], :default => nil
 
 # These attributes will only work for Django apps
 attribute :django_migrate, 'kind_of' => [TrueClass, FalseClass],
-          :default => false
+                           :default => false
 
 attribute :django_collectstatic, 'kind_of' => [TrueClass, FalseClass],
-          :default => false
+                                 :default => false
 
 attribute :interpreter, 'kind_of' => String, :default => 'python'

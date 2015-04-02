@@ -37,9 +37,8 @@ path = '/opt/whats_fresh/'
 hash = {
   'path' => path,
   'engine' => 'django.db.backends.sqlite3',
-  'dbname' => "#{path}/yourdatabasename.db",
+  'dbname' => "#{path}/yourdatabasename.db"
 }
-
 
 python_webapp 'whats_fresh' do
   create_user true
