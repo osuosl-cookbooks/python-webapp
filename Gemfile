@@ -19,3 +19,7 @@ gem 'kitchen-vagrant'
 gem 'rubocop'
 gem 'foodcritic'
 gem 'busser'
+gem 'chefspec'
+gem 'rspec'
+gem 'rake'
+
