@@ -89,26 +89,24 @@ action :install do
   end
 
   # Run django migrations if the django_migrate flag is set
-  if new_resource.django_migrate
-    bash "run migrations" do
-      user new_resource.owner
-      cwd path
-      code <<-EOH
-        #{virtualenv_path}/bin/python manage.py migrate --noinput
-      EOH
-    end
+  bash "run migrations #{new_resource.name}" do
+    user new_resource.owner
+    cwd path
+    code <<-EOH
+      #{virtualenv_path}/bin/python manage.py migrate --noinput
+    EOH
+    only_if { new_resource.django_migrate }
   end
 
   # Run the django collectstatic command if the django_collectstatic flag
   # is set
-  if new_resource.django_collectstatic
-    bash "collect static resources" do
-      user new_resource.owner
-      cwd path
-      code <<-EOH
-        #{virtualenv_path}/bin/python manage.py collectstatic --noinput
-      EOH
-    end
+  bash "collect static resources #{new_resource.name}" do
+    user new_resource.owner
+    cwd path
+    code <<-EOH
+      #{virtualenv_path}/bin/python manage.py collectstatic --noinput
+    EOH
+    only_if { new_resource.django_collectstatic }
   end
 
   new_resource.updated_by_last_action(true)
