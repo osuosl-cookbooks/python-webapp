@@ -11,8 +11,7 @@ namespace :style do
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
     t.options = {
-      :fail_tags => ['any'],
-      :tags => ['~FC005']
+      :fail_tags => ['any']
     }
   end
 end
@@ -46,7 +45,7 @@ namespace :integration do
 end
 
 desc 'Run all tests (style, spec, integration) on Openstack'
-task :openstack => ['style', 'spec', 'integration:cloud']
+task :cloud => ['style', 'spec', 'integration:cloud']
 
 desc 'Run style and spec tests (for Travis)'
 task :travis => ['style', 'spec']
