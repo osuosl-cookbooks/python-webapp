@@ -7,6 +7,7 @@ Design documentation is currently in a
 ## Supported Platforms
 
 Centos 6
+
 Centos 7?
 
 ## Running tests
@@ -15,16 +16,19 @@ To run all tests, including style checks with both foodcritic and rubocop,
 we use Rake. Rake allows for a granular level of testing, including running
 integration, style, and unit testing from one tool.
 
-To run all tests, if you've set up your cloud environment, run:
-
-```
-$ rake cloud
-```
-
-Otherwise, you can run all tests using a Vagrant virtual machine with:
+To run all tests using a Vagrant virtual machine, run:
 
 ```
 $ rake
+```
+
+If you have access to an Openstack environment, you can set up your environment
+variables to allow you to run integration tests on Openstack. Setting that up
+is beyond the scope of this guide; if you're already set up, you can run style
+and unit tests locally and integration tests on Openstack with:
+
+```
+$ rake cloud
 ```
 
 
@@ -36,6 +40,7 @@ All integration tests:
 
 ```
 $ rake integration:cloud
+$ rake integration:vagrant
 ```
 
 Individual integration test:
