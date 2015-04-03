@@ -58,9 +58,9 @@ describe 'python-webapp-test::default' do
 
   it 'runs django migrations' do
     expect(chef_run).to run_bash('run migrations whats_fresh').with(
-        code: %r{/opt/venv_whats_fresh/bin/python manage.py migrate --noinput},
-        cwd: '/opt/whats_fresh',
-        user: 'whats_fresh')
+      code: %r{/opt/venv_whats_fresh/bin/python manage.py migrate --noinput},
+      cwd: '/opt/whats_fresh',
+      user: 'whats_fresh')
   end
 
   it 'runs django collectstatic' do
