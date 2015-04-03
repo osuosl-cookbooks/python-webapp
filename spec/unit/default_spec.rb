@@ -45,23 +45,29 @@ describe 'python-webapp-test::default' do
       '/opt/working_h2ofronts/settings.py')
   end
 
+  # rubocop:disable Metrics/LineLength
   it 'installs Whats Fresh with setup.py' do
-    expect(chef_run).to run_execute(
-      '/opt/venv_whats_fresh/bin/python setup.py install')
-      .with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+    expect(chef_run)
+      .to run_bash('Install python dependencies whats_fresh').with(
+        code: %r{/opt/venv_whats_fresh/bin/python setup.py install},
+        cwd: '/opt/whats_fresh',
+        user: 'whats_fresh')
   end
 
   it 'runs django migrations' do
-    expect(chef_run).to run_execute(
-      '/opt/venv_whats_fresh/bin/python manage.py migrate --noinput')
-      .with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+    expect(chef_run).to run_bash('run migrations whats_fresh').with(
+        code: %r{/opt/venv_whats_fresh/bin/python manage.py migrate --noinput},
+        cwd: '/opt/whats_fresh',
+        user: 'whats_fresh')
   end
 
   it 'runs django collectstatic' do
-    expect(chef_run).to run_execute(
-      '/opt/venv_whats_fresh/bin/python manage.py collectstatic --noinput')
-      .with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+    expect(chef_run).to run_bash('collect static resources whats_fresh').with(
+      code: %r{/opt/venv_whats_fresh/bin/python manage.py collectstatic --noinput},
+      cwd: '/opt/whats_fresh',
+      user: 'whats_fresh')
   end
+  # rubocop:enable Metrics/LineLength
 end
 
 describe 'python-webapp-test::pgd' do

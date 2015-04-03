@@ -72,7 +72,7 @@ action :install do
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
   if new_resource.requirements_file.nil?
-    bash 'Install python dependencies' do
+    bash "Install python dependencies #{new_resource.name }" do
       user new_resource.owner
       cwd path
       code <<-EOH
