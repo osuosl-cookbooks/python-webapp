@@ -17,7 +17,7 @@ namespace :style do
 end
 
 desc 'Run all style checks'
-task style: ['style:chef', 'style:ruby']
+task style: %w(style:chef style:ruby)
 
 # Rspec and ChefSpec
 desc 'Run ChefSpec tests'
@@ -45,10 +45,10 @@ namespace :integration do
 end
 
 desc 'Run all tests (style, spec, integration) on Openstack'
-task cloud: ['style', 'spec', 'integration:cloud']
+task cloud: %w(style spec integration:cloud)
 
 desc 'Run style and spec tests (for Travis)'
 task travis: %w(style spec)
 
 # Default
-task default: ['style', 'spec', 'integration:vagrant']
+task default: %w(style spec integration:vagrant)
