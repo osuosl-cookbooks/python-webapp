@@ -36,12 +36,12 @@ describe 'python-webapp-test::default' do
   it 'creates configuration files for Whats Fresh and Working Waterfronts' do
     expect(chef_run).to create_template('config.yml.erb').with(
       owner: 'whats_fresh', group: 'whats_fresh')
-    expect(chef_run).to create_template('settings.py.erb').with(
+    expect(chef_run).not_to create_template('settings.py.erb').with(
       owner: 'chef', group: 'chef')
 
     # TODO: we should render the passed-in settings
     expect(chef_run).to render_file('/opt/whats_fresh/config.yml')
-    expect(chef_run).to render_file(
-      '/opt/working_h2ofronts/settings.py').with_content('')
+    expect(chef_run).not_to render_file(
+      '/opt/working_h2ofronts/settings.py')
   end
 end
