@@ -24,5 +24,5 @@ python_webapp 'pgd' do
   repository 'https://github.com/osuosl/python-test-apps.git'
 
   config_template nil
-  revision 'cookbook_test' # set this to nil
+  revision 'cookbook_test' # TODO: set this to nil
 end
