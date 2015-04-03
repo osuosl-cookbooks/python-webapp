@@ -44,4 +44,10 @@ describe 'python-webapp-test::default' do
     expect(chef_run).not_to render_file(
       '/opt/working_h2ofronts/settings.py')
   end
+
+  it 'installs requirements' do
+    expect(chef_run).to install_python_pip('requirements.txt')
+      .with(options: '-r')
+  end
+
 end
