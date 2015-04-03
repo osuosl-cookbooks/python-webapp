@@ -9,9 +9,11 @@ describe 'python-webapp-test::default' do
 
   it 'checks out Whats Fresh and Working Waterfronts' do
     expect(chef_run).to sync_git('/opt/whats_fresh').with(
-      repository: 'https://github.com/osuosl/python-test-apps.git')
+      repository: 'https://github.com/osuosl/python-test-apps.git',
+      checkout_branch: 'cookbook_test')
     expect(chef_run).to sync_git('/opt/working_h2ofronts').with(
-      repository: 'https://github.com/osuosl/python-test-apps.git')
+      repository: 'https://github.com/osuosl/python-test-apps.git',
+      checkout_branch: 'django')
   end
 
   it 'creates user and group for Whats Fresh' do
@@ -78,7 +80,8 @@ describe 'python-webapp-test::pgd' do
 
   it 'checks out PGD' do
     expect(chef_run).to sync_git('/opt/pgd').with(
-      repository: 'https://github.com/osuosl/python-test-apps.git')
+      repository: 'https://github.com/osuosl/python-test-apps.git',
+      checkout_branch: 'cookbook_test')
   end
 
   it 'creates directory for PGD' do
