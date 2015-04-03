@@ -45,6 +45,12 @@ describe 'python-webapp-test::default' do
       '/opt/working_h2ofronts/settings.py')
   end
 
+  it 'installs Whats Fresh with setup.py' do
+    expect(chef_run).to run_execute(
+      '/opt/venv_whats_fresh/bin/python setup.py install')
+      .with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+  end
+
   it 'runs django migrations' do
     expect(chef_run).to run_execute('/opt/venv_whats_fresh/bin/python manage.py migrate --noinput').with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
   end
@@ -70,7 +76,7 @@ describe 'python-webapp-test::pgd' do
       owner: 'chef', group: 'chef')
   end
 
-  it 'creates virtualenvs for Whats Fresh and Working Waterfronts' do
+  it 'creates virtualenvs for PGD' do
     expect(chef_run).to create_python_virtualenv('/opt/venv_pgd').with(
       owner: 'chef', group: 'chef')
   end
