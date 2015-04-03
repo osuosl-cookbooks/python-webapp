@@ -28,7 +28,7 @@ describe 'python-webapp-test::default' do
 
   it 'creates virtualenvs for Whats Fresh and Working Waterfronts' do
     expect(chef_run).to create_python_virtualenv('/opt/venv_whats_fresh').with(
-      owner: 'whats_fresh', group: 'whats_fresh')
+      owner: 'whats_fresh', group: 'whats_fresh', interpreter: 'python2.7')
     expect(chef_run).to create_python_virtualenv('/opt/venv_h2o').with(
       owner: 'chef', group: 'chef')
   end
