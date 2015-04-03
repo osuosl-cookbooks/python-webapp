@@ -36,18 +36,39 @@ describe 'python-webapp-test::default' do
   it 'creates configuration files for Whats Fresh and Working Waterfronts' do
     expect(chef_run).to create_template('config.yml.erb').with(
       owner: 'whats_fresh', group: 'whats_fresh')
-    expect(chef_run).not_to create_template('settings.py.erb').with(
+    expect(chef_run).to create_template('settings.py.erb').with(
       owner: 'chef', group: 'chef')
 
     # TODO: we should render the passed-in settings
     expect(chef_run).to render_file('/opt/whats_fresh/config.yml')
-    expect(chef_run).not_to render_file(
+    expect(chef_run).to render_file(
       '/opt/working_h2ofronts/settings.py')
   end
+end
 
-  it 'installs requirements' do
-    expect(chef_run).to install_python_pip('requirements.txt')
-      .with(options: '-r')
+describe 'python-webapp-test::pgd' do
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(
+      step_into: ['python_webapp']).converge(described_recipe)
   end
 
+  it 'checks out PGD' do
+    expect(chef_run).to sync_git('/opt/pgd').with(
+      repository: 'https://github.com/osuosl/python-test-apps.git')
+  end
+
+  it 'creates directory for PGD' do
+    expect(chef_run).to create_directory('/opt/pgd').with(
+      owner: 'chef', group: 'chef')
+  end
+
+  it 'creates virtualenvs for Whats Fresh and Working Waterfronts' do
+    expect(chef_run).to create_python_virtualenv('/opt/venv_pgd').with(
+      owner: 'chef', group: 'chef')
+  end
+
+  it 'installs special_requirements' do
+    expect(chef_run).to install_python_pip('/opt/pgd/special_requirements.txt')
+      .with(options: '-r')
+  end
 end
