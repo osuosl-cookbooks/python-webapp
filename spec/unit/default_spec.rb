@@ -44,6 +44,14 @@ describe 'python-webapp-test::default' do
     expect(chef_run).to render_file(
       '/opt/working_h2ofronts/settings.py')
   end
+
+  it 'runs django migrations' do
+    expect(chef_run).to run_execute('/opt/venv_whats_fresh/bin/python manage.py migrate --noinput').with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+  end
+
+  it 'runs django collectstatic' do
+    expect(chef_run).to run_execute('/opt/venv_whats_fresh/bin/python manage.py collectstatic --noinput').with(cwd: '/opt/whats_fresh', user: 'whats_fresh')
+  end
 end
 
 describe 'python-webapp-test::pgd' do
