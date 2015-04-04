@@ -32,7 +32,7 @@ user 'chef' do
   gid 'chef'
 end
 
-path = '/opt/whats_fresh'
+path = '/opt/tutorial-a'
 
 hash = {
   'path' => path,
@@ -40,10 +40,10 @@ hash = {
   'dbname' => "#{path}/yourdatabasename.db"
 }
 
-python_webapp 'whats_fresh' do
+python_webapp 'tutorial-a' do
   create_user true
-  owner 'whats_fresh'
-  group 'whats_fresh'
+  owner 'tutorial-a'
+  group 'tutorial-a'
 
   repository 'https://github.com/osuosl/python-test-apps.git'
 
@@ -56,8 +56,8 @@ python_webapp 'whats_fresh' do
   revision 'cookbook_test'
 end
 
-python_webapp 'working_waterfronts' do
-  path '/opt/working_h2ofronts'
+python_webapp 'tutorial-b' do
+  path '/opt/tutorial-b'
   virtualenv_path '/opt/venv_h2o'
   repository 'https://github.com/osuosl/python-test-apps.git'
   revision 'django'
