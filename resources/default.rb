@@ -55,3 +55,5 @@ attribute :django_collectstatic, 'kind_of' => [TrueClass, FalseClass],
                                  :default => false
 
 attribute :interpreter, 'kind_of' => String, :default => 'python'
+
+attribute :gunicorn_port, 'kind_of' => [Integer, NilClass], :default => nil
