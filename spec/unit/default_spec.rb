@@ -47,7 +47,6 @@ describe 'python-webapp-test::default' do
       '/app/tutorial-b/settings.py')
   end
 
-  # rubocop:disable Metrics/LineLength
   it 'installs Tutorial A with setup.py' do
     expect(chef_run)
       .to run_bash('Install python dependencies tutorial-a').with(
