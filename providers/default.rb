@@ -128,5 +128,31 @@ action :install do
     only_if { new_resource.django_collectstatic }
   end
 
+  if new_resource.gunicorn_port
+    # required to work around https://github.com/poise/python/issues/100
+    bash 'manually upgrade setuptools' do
+      code <<-EOH
+        pip install --upgrade setuptools
+      EOH
+    end
+
+    run_context.include_recipe 'supervisor'
+
+    python_pip 'gunicorn' do
+      virtualenv virtualenv_path
+    end
+
+    gunicorn_config "#{path}/gunicorn_config.py" do
+      listen "0.0.0.0:#{new_resource.gunicorn_port}"
+    end
+
+    supervisor_service new_resource.name do
+      command "#{virtualenv_path}/bin/gunicorn " \
+        "#{new_resource.name}.wsgi:application -c #{path}/gunicorn_config.py"
+      autorestart true
+      directory path
+    end
+  end
+
   new_resource.updated_by_last_action(true)
 end
