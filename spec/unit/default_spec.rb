@@ -86,6 +86,23 @@ describe 'python-webapp-test::default' do
         autorestart: true,
         directory: '/opt/whats_fresh')
   end
+
+  it 'installs gunicorn to Whats Fresh virtualenv' do
+    expect(chef_run)
+      .to install_python_pip('gunicorn').with(
+        virtualenv: '/opt/venv_whats_fresh')
+  end
+
+  it 'runs pip upgrade in bash' do
+    expect(chef_run)
+      .to run_bash('manually upgrade setuptools').with(
+        code: /pip install --upgrade setuptools/)
+  end
+
+  it 'includes supervisor recipe for Whats Fresh' do
+    expect(chef_run)
+      .to include_recipe('supervisor')
+  end
 end
 
 describe 'python-webapp-test::pgd' do
@@ -113,5 +130,9 @@ describe 'python-webapp-test::pgd' do
   it 'installs special_requirements' do
     expect(chef_run).to install_python_pip('/opt/pgd/special_requirements.txt')
       .with(options: '-r')
+  end
+
+  it 'does not install supervisor recipe for PGD' do
+    expect(chef_run).not_to include_recipe('supervisor')
   end
 end
