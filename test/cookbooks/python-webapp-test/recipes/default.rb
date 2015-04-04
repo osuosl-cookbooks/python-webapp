@@ -54,6 +54,8 @@ python_webapp 'whats_fresh' do
   django_collectstatic true
   interpreter 'python2.7'
   revision 'cookbook_test'
+
+  gunicorn_port 8888
 end
 
 python_webapp 'working_waterfronts' do

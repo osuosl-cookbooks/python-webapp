@@ -47,7 +47,6 @@ describe 'python-webapp-test::default' do
       '/opt/working_h2ofronts/settings.py')
   end
 
-  # rubocop:disable Metrics/LineLength
   it 'installs Whats Fresh with setup.py' do
     expect(chef_run)
       .to run_bash('Install python dependencies whats_fresh').with(
@@ -63,6 +62,7 @@ describe 'python-webapp-test::default' do
       user: 'whats_fresh')
   end
 
+  # rubocop:disable Metrics/LineLength
   it 'runs django collectstatic' do
     expect(chef_run).to run_bash('collect static resources whats_fresh').with(
       code: %r{/opt/venv_whats_fresh/bin/python manage.py collectstatic --noinput},
@@ -70,6 +70,22 @@ describe 'python-webapp-test::default' do
       user: 'whats_fresh')
   end
   # rubocop:enable Metrics/LineLength
+
+  it 'installs and sets up gunicorn for Whats Fresh' do
+    expect(chef_run)
+      .to create_gunicorn_config('/opt/whats_fresh/gunicorn_config.py').with(
+        listen: '0.0.0.0:8888')
+  end
+
+  it 'installs and sets up supervisor for Whats Fresh' do
+    expect(chef_run)
+      .to enable_supervisor_service('whats_fresh').with(
+        command: '/opt/venv_whats_fresh/bin/gunicorn' \
+          ' whats_fresh.wsgi:application' \
+          ' -c /opt/whats_fresh/gunicorn_config.py',
+        autorestart: true,
+        directory: '/opt/whats_fresh')
+  end
 end
 
 describe 'python-webapp-test::pgd' do
