@@ -7,67 +7,67 @@ describe 'python-webapp-test::default' do
       step_into: ['python_webapp']).converge(described_recipe)
   end
 
-  it 'checks out Whats Fresh and Working Waterfronts' do
-    expect(chef_run).to sync_git('/opt/whats_fresh').with(
+  it 'checks out Tutorial A and Tutorial B' do
+    expect(chef_run).to sync_git('/opt/tutorial-a').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
       checkout_branch: 'cookbook_test')
-    expect(chef_run).to sync_git('/opt/working_h2ofronts').with(
+    expect(chef_run).to sync_git('/opt/tutorial-b').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
       checkout_branch: 'django')
   end
 
-  it 'creates user and group for Whats Fresh' do
-    expect(chef_run).to create_group('whats_fresh')
-    expect(chef_run).to create_user('whats_fresh')
+  it 'creates user and group for Tutorial A' do
+    expect(chef_run).to create_group('tutorial-a')
+    expect(chef_run).to create_user('tutorial-a')
   end
 
-  it 'creates directory for Whats Fresh and Working Waterfronts' do
-    expect(chef_run).to create_directory('/opt/whats_fresh').with(
-      owner: 'whats_fresh', group: 'whats_fresh')
-    expect(chef_run).to create_directory('/opt/working_h2ofronts').with(
+  it 'creates directory for Tutorial A and Tutorial B' do
+    expect(chef_run).to create_directory('/opt/tutorial-a').with(
+      owner: 'tutorial-a', group: 'tutorial-a')
+    expect(chef_run).to create_directory('/opt/tutorial-b').with(
       owner: 'chef', group: 'chef')
   end
 
-  it 'creates virtualenvs for Whats Fresh and Working Waterfronts' do
-    expect(chef_run).to create_python_virtualenv('/opt/venv_whats_fresh').with(
-      owner: 'whats_fresh', group: 'whats_fresh', interpreter: 'python2.7')
+  it 'creates virtualenvs for Tutorial A and Tutorial B' do
+    expect(chef_run).to create_python_virtualenv('/opt/venv_tutorial-a').with(
+      owner: 'tutorial-a', group: 'tutorial-a', interpreter: 'python2.7')
     expect(chef_run).to create_python_virtualenv('/opt/venv_h2o').with(
       owner: 'chef', group: 'chef')
   end
 
-  it 'creates configuration files for Whats Fresh and Working Waterfronts' do
+  it 'creates configuration files for Tutorial A and Tutorial B' do
     expect(chef_run).to create_template('config.yml.erb').with(
-      owner: 'whats_fresh', group: 'whats_fresh')
+      owner: 'tutorial-a', group: 'tutorial-a')
     expect(chef_run).to create_template('settings.py.erb').with(
       owner: 'chef', group: 'chef')
 
     # TODO: we should render the passed-in settings
-    expect(chef_run).to render_file('/opt/whats_fresh/config.yml')
+    expect(chef_run).to render_file('/opt/tutorial-a/config.yml')
     expect(chef_run).to render_file(
-      '/opt/working_h2ofronts/settings.py')
+      '/opt/tutorial-b/settings.py')
   end
 
   # rubocop:disable Metrics/LineLength
-  it 'installs Whats Fresh with setup.py' do
+  it 'installs Tutorial A with setup.py' do
     expect(chef_run)
-      .to run_bash('Install python dependencies whats_fresh').with(
-        code: %r{/opt/venv_whats_fresh/bin/python setup.py install},
-        cwd: '/opt/whats_fresh',
-        user: 'whats_fresh')
+      .to run_bash('Install python dependencies tutorial-a').with(
+        code: %r{/opt/venv_tutorial-a/bin/python setup.py install},
+        cwd: '/opt/tutorial-a',
+        user: 'tutorial-a')
   end
 
   it 'runs django migrations' do
-    expect(chef_run).to run_bash('run migrations whats_fresh').with(
-      code: %r{/opt/venv_whats_fresh/bin/python manage.py migrate --noinput},
-      cwd: '/opt/whats_fresh',
-      user: 'whats_fresh')
+    expect(chef_run).to run_bash('run migrations tutorial-a').with(
+      code: %r{/opt/venv_tutorial-a/bin/python manage.py migrate --noinput},
+      cwd: '/opt/tutorial-a',
+      user: 'tutorial-a')
   end
 
   it 'runs django collectstatic' do
-    expect(chef_run).to run_bash('collect static resources whats_fresh').with(
-      code: %r{/opt/venv_whats_fresh/bin/python manage.py collectstatic --noinput},
-      cwd: '/opt/whats_fresh',
-      user: 'whats_fresh')
+    expect(chef_run).to run_bash('collect static resources tutorial-a').with(
+      code: %r{/opt/venv_tutorial-a/bin/python manage.py collectstatic --noinput},
+      cwd: '/opt/tutorial-a',
+      user: 'tutorial-a')
   end
   # rubocop:enable Metrics/LineLength
 end
