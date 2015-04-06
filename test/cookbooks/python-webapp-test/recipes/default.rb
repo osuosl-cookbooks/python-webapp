@@ -57,7 +57,7 @@ python_webapp 'tutorial-a' do
 end
 
 python_webapp 'tutorial-b' do
-  path '/opt/tutorial-b'
+  path '/app/tutorial-b'
   virtualenv_path '/opt/venv_h2o'
   repository 'https://github.com/osuosl/python-test-apps.git'
   revision 'django'
