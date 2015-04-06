@@ -136,5 +136,4 @@ describe 'python-webapp-test::tutorial_c' do
   it 'does not install supervisor recipe for Tutorial C' do
     expect(chef_run).not_to include_recipe('supervisor')
   end
-
 end
