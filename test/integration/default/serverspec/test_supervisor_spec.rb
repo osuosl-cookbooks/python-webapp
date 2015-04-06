@@ -1,6 +1,6 @@
 require 'serverspec'
 
-# Test that Whats Fresh is running under supervisor
-describe service('whats_fresh') do
+# Test that Tutorial A is running under supervisor
+describe service('tutorial_a') do
   it { should be_running.under('supervisor') }
 end

@@ -1,6 +1,5 @@
 #
-# Cookbook Name:: osl_application_python_test
-# Recipe:: default
+# Cookbook Name:: python-webapp
 #
 # Copyright Chef, OSU Open Source Lab
 #
