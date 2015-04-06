@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: python-webapp-test
-# Recipe:: tutorial-c
+# Recipe:: tutorial_c
 #
 # Copyright 2015, Oregon State University
 #
@@ -33,7 +33,7 @@ user 'chef' do
   gid 'chef'
 end
 
-python_webapp 'tutorial-c' do
+python_webapp 'tutorial_c' do
   path nil
   requirements_file 'special_requirements.txt'
 
