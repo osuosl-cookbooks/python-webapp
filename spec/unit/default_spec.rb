@@ -11,7 +11,7 @@ describe 'python-webapp-test::default' do
     expect(chef_run).to sync_git('/opt/tutorial-a').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
       checkout_branch: 'cookbook_test')
-    expect(chef_run).to sync_git('/opt/tutorial-b').with(
+    expect(chef_run).to sync_git('/app/tutorial-b').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
       checkout_branch: 'django')
   end
@@ -24,7 +24,7 @@ describe 'python-webapp-test::default' do
   it 'creates directory for Tutorial A and Tutorial B' do
     expect(chef_run).to create_directory('/opt/tutorial-a').with(
       owner: 'tutorial-a', group: 'tutorial-a')
-    expect(chef_run).to create_directory('/opt/tutorial-b').with(
+    expect(chef_run).to create_directory('/app/tutorial-b').with(
       owner: 'chef', group: 'chef')
   end
 
@@ -44,7 +44,7 @@ describe 'python-webapp-test::default' do
     # TODO: we should render the passed-in settings
     expect(chef_run).to render_file('/opt/tutorial-a/config.yml')
     expect(chef_run).to render_file(
-      '/opt/tutorial-b/settings.py')
+      '/app/tutorial-b/settings.py')
   end
 
   # rubocop:disable Metrics/LineLength

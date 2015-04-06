@@ -20,20 +20,20 @@ describe file('/opt/tutorial-a/.git/HEAD') do
 end
 
 # Test that the git repository's directory is properly set up
-describe file('/opt/tutorial-b/') do
+describe file('/app/tutorial-b/') do
   it { should be_directory }
   it { should be_grouped_into 'chef' }
   it { should be_owned_by('chef') }
 end
 
 # Test that the git repository is actually a git repository
-describe file('/opt/tutorial-b/.git') do
+describe file('/app/tutorial-b/.git') do
   it { should be_directory }
   it { should be_grouped_into 'chef' }
   it { should be_owned_by('chef') }
 end
 
 # Test that the right revision has been checked out
-describe file('/opt/tutorial-b/.git/HEAD') do
+describe file('/app/tutorial-b/.git/HEAD') do
   its(:content) { should match(/django/) }
 end
