@@ -47,7 +47,6 @@ describe 'python-webapp-test::default' do
       '/opt/tutorial_b/settings.py')
   end
 
-  # rubocop:disable Metrics/LineLength
   it 'installs Tutorial A with setup.py' do
     expect(chef_run)
       .to run_bash('Install python dependencies tutorial_a').with(
@@ -138,7 +137,4 @@ describe 'python-webapp-test::tutorial_c' do
     expect(chef_run).not_to include_recipe('supervisor')
   end
 
-  it 'does not install supervisor recipe for PGD' do
-    expect(chef_run).not_to include_recipe('supervisor')
-  end
 end
