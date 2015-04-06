@@ -66,6 +66,9 @@ end
 desc 'Run all tests (style, spec, integration) on Openstack'
 task cloud: %w(style spec integration:cloud)
 
+desc 'Run all tests (style, spec, integration) on Vagrant'
+task vagrant: %w(style spec integration:vagrant)
+
 desc 'Run style and spec tests (for Travis)'
 task travis: %w(style spec)
 
