@@ -71,26 +71,26 @@ describe 'python-webapp-test::default' do
   end
   # rubocop:enable Metrics/LineLength
 
-  it 'installs and sets up gunicorn for Whats Fresh' do
+  it 'installs and sets up gunicorn for Tutorial A' do
     expect(chef_run)
-      .to create_gunicorn_config('/opt/whats_fresh/gunicorn_config.py').with(
+      .to create_gunicorn_config('/opt/tutorial-a/gunicorn_config.py').with(
         listen: '0.0.0.0:8888')
   end
 
-  it 'installs and sets up supervisor for Whats Fresh' do
+  it 'installs and sets up supervisor for Tutorial A' do
     expect(chef_run)
-      .to enable_supervisor_service('whats_fresh').with(
-        command: '/opt/venv_whats_fresh/bin/gunicorn' \
-          ' whats_fresh.wsgi:application' \
-          ' -c /opt/whats_fresh/gunicorn_config.py',
+      .to enable_supervisor_service('tutorial-a').with(
+        command: '/opt/venv_tutorial-a/bin/gunicorn' \
+          ' tutorial-a.wsgi:application' \
+          ' -c /opt/tutorial-a/gunicorn_config.py',
         autorestart: true,
-        directory: '/opt/whats_fresh')
+        directory: '/opt/tutorial-a')
   end
 
-  it 'installs gunicorn to Whats Fresh virtualenv' do
+  it 'installs gunicorn to Tutorial A virtualenv' do
     expect(chef_run)
       .to install_python_pip('gunicorn').with(
-        virtualenv: '/opt/venv_whats_fresh')
+        virtualenv: '/opt/venv_tutorial-a')
   end
 
   it 'runs pip upgrade in bash' do
@@ -99,40 +99,41 @@ describe 'python-webapp-test::default' do
         code: /pip install --upgrade setuptools/)
   end
 
-  it 'includes supervisor recipe for Whats Fresh' do
+  it 'includes supervisor recipe for Tutorial A' do
     expect(chef_run)
       .to include_recipe('supervisor')
   end
 end
 
-describe 'python-webapp-test::pgd' do
+describe 'python-webapp-test::tutorial-c' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
       step_into: ['python_webapp']).converge(described_recipe)
   end
 
-  it 'checks out PGD' do
-    expect(chef_run).to sync_git('/opt/pgd').with(
+  it 'checks out Tutorial C' do
+    expect(chef_run).to sync_git('/opt/tutorial-c').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
       checkout_branch: 'cookbook_test')
   end
 
-  it 'creates directory for PGD' do
-    expect(chef_run).to create_directory('/opt/pgd').with(
+  it 'creates directory for Tutorial C' do
+    expect(chef_run).to create_directory('/opt/tutorial-c').with(
       owner: 'chef', group: 'chef')
   end
 
-  it 'creates virtualenvs for PGD' do
-    expect(chef_run).to create_python_virtualenv('/opt/venv_pgd').with(
+  it 'creates virtualenvs for Tutorial C' do
+    expect(chef_run).to create_python_virtualenv('/opt/venv_tutorial-c').with(
       owner: 'chef', group: 'chef')
   end
 
   it 'installs special_requirements' do
-    expect(chef_run).to install_python_pip('/opt/pgd/special_requirements.txt')
-      .with(options: '-r')
+    expect(chef_run)
+      .to install_python_pip('/opt/tutorial-c/special_requirements.txt').with(
+        options: '-r')
   end
 
-  it 'does not install supervisor recipe for PGD' do
+  it 'does not install supervisor recipe for Tutorial C' do
     expect(chef_run).not_to include_recipe('supervisor')
   end
 end
