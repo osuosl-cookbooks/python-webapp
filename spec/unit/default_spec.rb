@@ -47,14 +47,7 @@ describe 'python-webapp-test::default' do
       '/opt/tutorial_b/settings.py')
   end
 
-<<<<<<< HEAD
   it 'installs Tutorial A with setup.py' do
-||||||| merged common ancestors
-  # rubocop:disable Metrics/LineLength
-  it 'installs Whats Fresh with setup.py' do
-=======
-  it 'installs Whats Fresh with setup.py' do
->>>>>>> 9422751459aa5b832160096e9e707a0141e49162
     expect(chef_run)
       .to run_bash('Install python dependencies tutorial_a').with(
         code: %r{/opt/venv_tutorial_a/bin/python setup.py install},
@@ -77,7 +70,6 @@ describe 'python-webapp-test::default' do
       user: 'tutorial_a')
   end
   # rubocop:enable Metrics/LineLength
-<<<<<<< HEAD
 
   it 'installs and sets up gunicorn for Tutorial A' do
     expect(chef_run)
@@ -111,42 +103,6 @@ describe 'python-webapp-test::default' do
     expect(chef_run)
       .to include_recipe('supervisor')
   end
-||||||| merged common ancestors
-=======
-
-  it 'installs and sets up gunicorn for Whats Fresh' do
-    expect(chef_run)
-      .to create_gunicorn_config('/opt/whats_fresh/gunicorn_config.py').with(
-        listen: '0.0.0.0:8888')
-  end
-
-  it 'installs and sets up supervisor for Whats Fresh' do
-    expect(chef_run)
-      .to enable_supervisor_service('whats_fresh').with(
-        command: '/opt/venv_whats_fresh/bin/gunicorn' \
-          ' whats_fresh.wsgi:application' \
-          ' -c /opt/whats_fresh/gunicorn_config.py',
-        autorestart: true,
-        directory: '/opt/whats_fresh')
-  end
-
-  it 'installs gunicorn to Whats Fresh virtualenv' do
-    expect(chef_run)
-      .to install_python_pip('gunicorn').with(
-        virtualenv: '/opt/venv_whats_fresh')
-  end
-
-  it 'runs pip upgrade in bash' do
-    expect(chef_run)
-      .to run_bash('manually upgrade setuptools').with(
-        code: /pip install --upgrade setuptools/)
-  end
-
-  it 'includes supervisor recipe for Whats Fresh' do
-    expect(chef_run)
-      .to include_recipe('supervisor')
-  end
->>>>>>> 9422751459aa5b832160096e9e707a0141e49162
 end
 
 describe 'python-webapp-test::tutorial_c' do
