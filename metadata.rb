@@ -1,5 +1,5 @@
 name 'python-webapp'
-maintainer 'OSU Open Source Lab'
+maintainer 'Oregon State University'
 maintainer_email 'support@osuosl.org'
 license 'Apache v2'
 description 'Deploy python webapps'

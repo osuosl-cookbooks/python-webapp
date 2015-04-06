@@ -1,5 +1,5 @@
 name 'python-webapp-test'
-maintainer 'OSU Open Source Lab'
+maintainer 'Oregon State University'
 maintainer_email 'chef@osuosl.org'
 license 'Apache 2.0'
 description 'Used to test the python-webapp cookbook'

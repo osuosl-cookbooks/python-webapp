@@ -1,7 +1,7 @@
 #
 # Cookbook Name:: python-webapp
 #
-# Copyright Chef, OSU Open Source Lab
+# Copyright Chef, Oregon State University
 #
 # Original authors: https://github.com/chef-cookbooks/yum/blob/master/Rakefile
 #
