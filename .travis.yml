@@ -6,4 +6,4 @@ cache: bundler
 install:
   - bundle install --retry=3
 script:
-  - rake travis
+  - bundle exec rake travis
