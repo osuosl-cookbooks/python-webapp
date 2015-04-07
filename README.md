@@ -10,6 +10,59 @@ Centos 6
 
 Centos 7?
 
+## Usage
+
+### Resource
+
+```
+python-webapp "python-app-name" do
+  option "option_value"
+end
+```
+
+Option                  | Type      | Description                            | Default Value
+----------------------- | --------- | -------------------------------------- | -------------
+`:create_user`          | Boolean   | Creates a user on the sever            | `false`
+`:path`                 | String/Nil| Path to application                    | `nil`
+`:owner`                | String    | Owner of application files (user)      | `chef`
+`:group`                | String    | Owner of application files (group)     | `chef`
+`:repository`           | String    | URL to git repository                  | `nil`
+`:revision`             | String    | Branch or Commit Hash of Repo          | `master`
+`:virtualenv_path`      | String    | Path to python virtualenv              | `nil`
+`:config_template`      | String/Nil| Path to app config template            | `settings.py.erb`
+`:config_destination`   | String/Nil| Path to app config location on server  | `nil`
+`:config_vars`          | Hash      | Variables for the config template      | `nil`
+`:requirements_file`    | String/Nil| Application's dependencies file.       | `setup.py`
+`:django_migrate`       | Boolean   | Whether or not to run django migrations| `false`
+`:django_collectstatic` | Boolean   | 
+`:interpreter`          | String    | 
+`:gunicorn_port`        | Int/Nil   | 
+
+### Example
+
+```
+python-webapp 'test_app' do
+  create_user true
+  owner 'test_app'
+  group 'test_app'
+
+  repository 'https://github.com/osuosl/python-test-apps.git'
+
+  config_template 'config.yml.erb'
+  config_destination "#{path}/config.yml"
+  config_vars hash
+  django_migrate true
+  django_collectstatic true
+  interpreter 'python2.7'
+  revision 'cookbook_test'
+
+  gunicorn_port 8888
+end
+```
+
+### Notes
+
+
 ## Running tests
 
 To run all tests, including style checks with both foodcritic and rubocop,
