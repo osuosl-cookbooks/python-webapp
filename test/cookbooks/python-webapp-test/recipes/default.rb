@@ -16,13 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'yum-ius'
-include_recipe 'yum-epel'
-
-%w(gcc python27 python27-devel python27-pip).each do |pkg|
-  package pkg
-end
-
 group 'chef' do
   action :create
 end
