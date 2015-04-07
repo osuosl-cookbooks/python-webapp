@@ -23,6 +23,12 @@ action :install do
   run_context.include_recipe 'python::pip'
   run_context.include_recipe 'python::virtualenv'
 
+  # required to work around https://github.com/poise/python/issues/100
+  python_pip 'setuptools' do
+    action :install
+    options '--upgrade'
+  end
+
   if new_resource.create_user
     group new_resource.group do
       action :create
@@ -129,13 +135,6 @@ action :install do
   end
 
   if new_resource.gunicorn_port
-    # required to work around https://github.com/poise/python/issues/100
-    bash 'manually upgrade setuptools' do
-      code <<-EOH
-        pip install --upgrade setuptools
-      EOH
-    end
-
     run_context.include_recipe 'supervisor'
 
     python_pip 'gunicorn' do

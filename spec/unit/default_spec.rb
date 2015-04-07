@@ -93,10 +93,10 @@ describe 'python-webapp-test::default' do
         virtualenv: '/opt/venv_tutorial_a')
   end
 
-  it 'runs pip upgrade in bash' do
+  it 'runs pip upgrade' do
     expect(chef_run)
-      .to run_bash('manually upgrade setuptools').with(
-        code: /pip install --upgrade setuptools/)
+      .to install_python_pip('setuptools').with(
+        options: '--upgrade')
   end
 
   it 'includes supervisor recipe for Tutorial A' do
