@@ -29,7 +29,7 @@ describe 'python-webapp-test::default' do
   end
 
   it 'creates virtualenvs for Tutorial A and Tutorial B' do
-    expect(chef_run).to create_python_virtualenv('/opt/venv_tutorial_a').with(
+    expect(chef_run).to create_python_virtualenv('/opt/tutorial_a/venv').with(
       owner: 'tutorial_a', group: 'tutorial_a', interpreter: 'python2.7')
     expect(chef_run).to create_python_virtualenv('/opt/venv_h2o').with(
       owner: 'chef', group: 'chef')
@@ -50,23 +50,23 @@ describe 'python-webapp-test::default' do
   it 'installs Tutorial A with setup.py' do
     expect(chef_run)
       .to run_bash('Install python dependencies tutorial_a').with(
-        code: %r{/opt/venv_tutorial_a/bin/python setup.py install},
-        cwd: '/opt/tutorial_a',
+        code: %r{/opt/tutorial_a/venv/bin/python setup.py install},
+        cwd: '/opt/tutorial_a/source',
         user: 'tutorial_a')
   end
 
   it 'runs django migrations' do
     expect(chef_run).to run_bash('run migrations tutorial_a').with(
-      code: %r{/opt/venv_tutorial_a/bin/python manage.py migrate --noinput},
-      cwd: '/opt/tutorial_a',
+      code: %r{/opt/tutorial_a/venv/bin/python manage.py migrate --noinput},
+      cwd: '/opt/tutorial_a/source',
       user: 'tutorial_a')
   end
 
   # rubocop:disable Metrics/LineLength
   it 'runs django collectstatic' do
     expect(chef_run).to run_bash('collect static resources tutorial_a').with(
-      code: %r{/opt/venv_tutorial_a/bin/python manage.py collectstatic --noinput},
-      cwd: '/opt/tutorial_a',
+      code: %r{/opt/tutorial_a/venv/bin/python manage.py collectstatic --noinput},
+      cwd: '/opt/tutorial_a/source',
       user: 'tutorial_a')
   end
   # rubocop:enable Metrics/LineLength
@@ -80,17 +80,17 @@ describe 'python-webapp-test::default' do
   it 'installs and sets up supervisor for Tutorial A' do
     expect(chef_run)
       .to enable_supervisor_service('tutorial_a').with(
-        command: '/opt/venv_tutorial_a/bin/gunicorn' \
+        command: '/opt/tutorial_a/venv/bin/gunicorn' \
           ' tutorial_a.wsgi:application' \
           ' -c /opt/tutorial_a/gunicorn_config.py',
         autorestart: true,
-        directory: '/opt/tutorial_a')
+        directory: '/opt/tutorial_a/source')
   end
 
   it 'installs gunicorn to Tutorial A virtualenv' do
     expect(chef_run)
       .to install_python_pip('gunicorn').with(
-        virtualenv: '/opt/venv_tutorial_a')
+        virtualenv: '/opt/tutorial_a/venv')
   end
 
   it 'runs pip upgrade' do
@@ -123,13 +123,14 @@ describe 'python-webapp-test::tutorial_c' do
   end
 
   it 'creates virtualenvs for Tutorial C' do
-    expect(chef_run).to create_python_virtualenv('/opt/venv_tutorial_c').with(
+    expect(chef_run).to create_python_virtualenv('/opt/tutorial_c/venv').with(
       owner: 'chef', group: 'chef')
   end
 
   it 'installs special_requirements' do
     expect(chef_run)
-      .to install_python_pip('/opt/tutorial_c/special_requirements.txt').with(
+      .to install_python_pip('/opt/tutorial_c/source/' \
+        'special_requirements.txt').with(
         options: '-r')
   end
 
