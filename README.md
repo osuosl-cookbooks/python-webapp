@@ -6,9 +6,10 @@ Design documentation is currently in a
 
 ## Supported Platforms
 
-Centos 6
-
-Centos 7?
+* Centos 6
+* Centos 7
+* Ubuntu 12.04
+* Ubuntu 14.04
 
 ## Running tests
 
