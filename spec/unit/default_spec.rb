@@ -131,7 +131,7 @@ describe 'python-webapp-test::tutorial_c' do
     expect(chef_run)
       .to install_python_pip('/opt/tutorial_c/source/' \
         'special_requirements.txt').with(
-        options: '-r')
+          options: '-r')
   end
 
   it 'does not install supervisor recipe for Tutorial C' do
