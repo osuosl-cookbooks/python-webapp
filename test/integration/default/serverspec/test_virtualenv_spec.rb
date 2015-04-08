@@ -1,7 +1,7 @@
 require 'serverspec'
 
 # Test that the virtualenv's directory is properly set up
-describe file('/opt/venv_tutorial_a/') do
+describe file('/opt/tutorial_a/venv') do
   it { should be_directory }
   it { should be_grouped_into 'tutorial_a' }
   it { should be_owned_by('tutorial_a') }
