@@ -45,6 +45,12 @@ platforms:
     username: ubuntu
     image_ref: "Ubuntu 14.04"
 
+- name: ubuntu-12.04
+  driver_plugin: openstack
+  driver_config:
+    username: ubuntu
+    image_ref: "Ubuntu 12.04"
+
 suites:
 - name: default
   run_list:
