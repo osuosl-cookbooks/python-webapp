@@ -50,9 +50,9 @@ platforms:
   driver_config:
     username: ubuntu
     image_ref: "Ubuntu 12.04"
-    run_list:
-      - recipe[apt]
-      - recipe[python-webapp-test::_centos]
+  run_list:
+    - recipe[apt]
+    - recipe[python-webapp-test::default]
 
 suites:
 - name: default
