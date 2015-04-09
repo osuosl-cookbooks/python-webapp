@@ -44,7 +44,7 @@ action :install do
   path = new_resource.path || "/opt/#{ new_resource.name }"
 
   if new_resource.virtualenv_path.nil?
-    virtualenv_path = "/opt/venv_#{ new_resource.name }"
+    virtualenv_path = "/opt/#{ new_resource.name }/venv"
   else
     virtualenv_path = new_resource.virtualenv_path
   end
@@ -77,7 +77,7 @@ action :install do
     action :sync
     repository new_resource.repository
     checkout_branch new_resource.revision
-    destination path
+    destination "#{path}/source"
     user new_resource.owner
     group new_resource.group
   end
@@ -99,14 +99,14 @@ action :install do
   if new_resource.requirements_file.nil?
     bash "Install python dependencies #{new_resource.name }" do
       user new_resource.owner
-      cwd path
+      cwd "#{path}/source"
       code <<-EOH
         #{virtualenv_path}/bin/python setup.py install
       EOH
     end
 
   else
-    python_pip "#{ path }/#{ new_resource.requirements_file }" do
+    python_pip "#{ path }/source/#{ new_resource.requirements_file }" do
       action :install
       options '-r'
       virtualenv virtualenv_path
@@ -116,7 +116,7 @@ action :install do
   # Run django migrations if the django_migrate flag is set
   bash "run migrations #{new_resource.name}" do
     user new_resource.owner
-    cwd path
+    cwd "#{path}/source"
     code <<-EOH
       #{virtualenv_path}/bin/python manage.py migrate --noinput
     EOH
@@ -127,7 +127,7 @@ action :install do
   # is set
   bash "collect static resources #{new_resource.name}" do
     user new_resource.owner
-    cwd path
+    cwd "#{path}/source"
     code <<-EOH
       #{virtualenv_path}/bin/python manage.py collectstatic --noinput
     EOH
@@ -149,7 +149,7 @@ action :install do
       command "#{virtualenv_path}/bin/gunicorn " \
         "#{new_resource.name}.wsgi:application -c #{path}/gunicorn_config.py"
       autorestart true
-      directory path
+      directory "#{path}/source"
     end
   end
 
