@@ -23,22 +23,24 @@ Centos 7?
 Option                  | Type      | Description                                   | Default Value
 ----------------------- | --------- | --------------------------------------------- | -------------
 `:create_user`          | Boolean   | Creates a user on the sever                   | `false`
-`:path`                 | String/Nil| Path to application                           | `/opt/#{ project_name }`
+`:path`                 | String/Nil| Path to application                           | `nil` with a calculated default.
 `:owner`                | String    | Owner of application files (user)             | `chef`
 `:group`                | String    | Owner of application files (group)            | `chef`
-`:repository`           | String    | URL to git repository                         | `nil`
+`:repository`           | String    | URL to git repository                         | `cannot be nil`
 `:revision`             | String    | Branch or Commit Hash of Repo                 | `master`
-`:virtualenv_path`      | String    | Path to python virtualenv                     | `/opt/venv_#{ project_name }`
-`:config_template`      | String/Nil| Path to app config template                   | `settings.py.erb`
-`:config_destination`   | String/Nil| Path to app config location on server         | `nil`
-`:config_vars`          | Hash      | Variables for the config template             | `nil`
-`:requirements_file`    | String/Nil| Application's dependencies file.              | `setup.py`
+`:virtualenv_path`      | String    | Path to python virtualenv                     | `nil` with a calculated default.
+`:config_template`      | String/Nil| Path to app config template                   | `nil` with a calculated default.
+`:config_destination`   | String/Nil| Path to app config location on server         | `nil` with a calculated default.
+`:config_vars`          | Hash      | Variables for the config template             | `Cannot be nil if config_destination is set, can be empty`
+`:requirements_file`    | String/Nil| Application's dependencies file.              | `nil` with a calculated default.
 `:django_migrate`       | Boolean   | Whether or not to run django migrations       | `false`
 `:django_collectstatic` | Boolean   | Whether or not to run django collectstatic    | `false`
 `:interpreter`          | String    | Python command (python, python3, etc)         | `python`
 `:gunicorn_port`        | Int/Nil   | Port to run gunicorn on                       | `nil`
 
-For more information on some of thesse resources see the 'Notes' section below.
+For more information on some of these resources (and the sane defaults
+python-webapp sets in case of certain values being) see the 'Notes' section
+below.
 
 ### Example
 
@@ -53,7 +55,7 @@ informtion to the corresponding files:
 **RECIPE USAGE:** The following code would go in a `some_recipe.rb` file:
 
 ```
-    path = '/opt/test_app'
+    proj_path = '/opt/test_app'
 
     python-webapp 'test_app' do
       create_user true
@@ -66,11 +68,12 @@ informtion to the corresponding files:
       config_template 'config.yml.erb'
       config_destination "#{path}/config.yml"
       config_vars(
-          path: path,
+          path: proj_path,
           engine: 'django.db.backends.sqlite3',
           dbname: "#{path}/yourdatabasename.db"
       )
-      interpreter 'python2.7'
+      interpreter 'python2.7'   # can be left out if your systems default python
+                                # interpreter is your interpreter as well
 
       django_migrate true
       django_collectstatic true
@@ -87,26 +90,29 @@ https://github.com/osuosl-cookbooks/python-webapp/tree/master/test/cookbooks/pyt
 
 ### Notes
 
-**python versions:** If you are using a version of python that does not come by
-default on your system you have to install this seperately; python-webapp will
-not automatically install a given version of python for your system.
+**Sane Defaults:**
+* `path` is calculated as `/opt/#{ project_name }`
+* `virtualenv_path` is calculated to be `/opt/venv_#{ project_name }`
+* `config_destination` is calculated to be `${ path }/settings.py`
+* `requirements_file` is calculated to be `setup.py`
+* `config_template` is calculated to be `settings.py.erb`
 
-**wsgy.py:** One assumption made by python webapp is that if you are running a
-Flask application you have included a wsgi.py file in your Flask application's
-main directory. You do not need to include a wsgi.py for a Django project.
+**Python Versions:** If you are using a version of python in `interpreter` that
+does not come by default on your system you have to install this seperately;
+python-webapp will not automatically install a given version of python for your
+system.
 
-**gunicorn_port:**  The gunicorn_port resource is also a gunicorn specifier in
-that when you specify the port for gunicorn to run on you are also specifying
-that you want to run guicorn at all. Without the gunicorn_port being specified
-gunicorn will not run at all.
+**`gunicorn_port`:** The gunicorn_port resource both specifies the port gunicorn
+will run on and that you are using gunicorn. By not specifying gunicorn_port
+you are specifying that you aren't using gunicorn.
 
-**requirements_file:** The requirements_file default value assumes your python
+**`requirements_file`:** The requirements_file default value assumes your python
 webapp is a python package (i.e., it has a setup.py) however without a setup.py
-you must include a requirements fie, usually created with the command `pip
+you must include a requirements file, usually created with the command `pip
 freeze > requirements.txt` inside of your virtualenv.
 
-**config_template:** this is found in
-<cookbook_dir>/templates/<recipe_name>/some_file.erb.
+**`config_template`:** this is found in
+`<cookbook_dir>/templates/<recipe_name>/some_file.erb`.
 
 ## Running tests
 
