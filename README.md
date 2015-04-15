@@ -20,27 +20,29 @@ Centos 7?
     end
 ```
 
+<br />
+
 Option                  | Type      | Description                                   | Default Value
 ----------------------- | --------- | --------------------------------------------- | -------------
 `:create_user`          | Boolean   | Creates a user on the sever                   | `false`
-`:path`                 | String/Nil| Path to application                           | `nil` with a calculated default.
+`:path`                 | String/Nil| Path to application                           | `nil` with a [calculated default](#notes).
 `:owner`                | String    | Owner of application files (user)             | `chef`
 `:group`                | String    | Owner of application files (group)            | `chef`
-`:repository`           | String    | URL to git repository                         | `cannot be nil`
+`:repository`           | String    | URL to git repository                         | `This is required`
 `:revision`             | String    | Branch or Commit Hash of Repo                 | `master`
-`:virtualenv_path`      | String    | Path to python virtualenv                     | `nil` with a calculated default.
-`:config_template`      | String/Nil| Path to app config template                   | `nil` with a calculated default.
-`:config_destination`   | String/Nil| Path to app config location on server         | `nil` with a calculated default.
-`:config_vars`          | Hash      | Variables for the config template             | `Cannot be nil if config_destination is set, can be empty`
-`:requirements_file`    | String/Nil| Application's dependencies file.              | `nil` with a calculated default.
+`:virtualenv_path`      | String    | Path to python virtualenv                     | `nil` with a [calculated default](#notes).
+`:config_template`      | String/Nil| Path to app config template                   | `nil` with a [calculated default](#notes).
+`:config_destination`   | String/Nil| Path to app config location on server         | `nil` with a [calculated default](#notes).
+`:config_vars`          | Hash      | Variables for the config template             | Required if config_template is set. It can be an empty string
+`:requirements_file`    | String/Nil| Application's dependencies file.              | `nil` with a [calculated default](#notes).
 `:django_migrate`       | Boolean   | Whether or not to run django migrations       | `false`
 `:django_collectstatic` | Boolean   | Whether or not to run django collectstatic    | `false`
 `:interpreter`          | String    | Python command (python, python3, etc)         | `python`
 `:gunicorn_port`        | Int/Nil   | Port to run gunicorn on                       | `nil`
 
 For more information on some of these resources (and the sane defaults
-python-webapp sets in case of certain values being) see the 'Notes' section
-below.
+python-webapp sets in case of certain values being) see the [Notes
+section](#notes) below.
 
 ### Example
 
@@ -51,6 +53,11 @@ informtion to the corresponding files:
 * Add `cookbook 'python-webapp', git:
   'git://github.com/osuosl-cookbooks/python-webapp.git', branch: 'master'` to your
   Berksfile
+
+**Note:** Once this cookbook is on [Chef
+Supermarket](https://supermarket.chef.io/cookbooks?utf8=%E2%9C%93&q=python-webapp)
+you will not need to include the `git: ...` part of the above line to your
+Berksfile.
 
 **RECIPE USAGE:** The following code would go in a `some_recipe.rb` file:
 
@@ -66,11 +73,11 @@ informtion to the corresponding files:
       revision 'develop'
 
       config_template 'config.yml.erb'
-      config_destination "#{path}/config.yml"
+      config_destination "#{proj_path}/config.yml"
       config_vars(
           path: proj_path,
           engine: 'django.db.backends.sqlite3',
-          dbname: "#{path}/yourdatabasename.db"
+          dbname: "#{proj_path}/yourdatabasename.db"
       )
       interpreter 'python2.7'   # can be left out if your systems default python
                                 # interpreter is your interpreter as well
@@ -92,7 +99,7 @@ https://github.com/osuosl-cookbooks/python-webapp/tree/master/test/cookbooks/pyt
 
 **Sane Defaults:**
 * `path` is calculated as `/opt/#{ project_name }`
-* `virtualenv_path` is calculated to be `/opt/venv_#{ project_name }`
+* `virtualenv_path` is calculated to be `/opt/#{ project_name }/venv`
 * `config_destination` is calculated to be `${ path }/settings.py`
 * `requirements_file` is calculated to be `setup.py`
 * `config_template` is calculated to be `settings.py.erb`
