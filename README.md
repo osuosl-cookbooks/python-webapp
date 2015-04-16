@@ -91,9 +91,8 @@ Berksfile.
 
 In the above example `test_app` should be the name of your python application.
 
-More examples of the python-webapp's usage can be found in this repo's `test`
-directory at
-https://github.com/osuosl-cookbooks/python-webapp/tree/master/test/cookbooks/python-webapp-test
+More examples of the python-webapp's usage can be found in this
+[repo's tests](https://github.com/osuosl-cookbooks/python-webapp/tree/master/test/cookbooks/python-webapp-test)
 
 ### Notes
 
