@@ -76,7 +76,7 @@ action :install do
   git path do
     action :sync
     repository new_resource.repository
-    checkout_branch new_resource.revision
+    revision new_resource.revision
     destination "#{path}/source"
     user new_resource.owner
     group new_resource.group
