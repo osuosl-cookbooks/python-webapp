@@ -10,10 +10,10 @@ describe 'python-webapp-test::default' do
   it 'checks out Tutorial A and Tutorial B' do
     expect(chef_run).to sync_git('/opt/tutorial_a').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
-      checkout_branch: 'cookbook_test')
+      revision: 'cookbook_test')
     expect(chef_run).to sync_git('/opt/tutorial_b').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
-      checkout_branch: 'django')
+      revision: 'django')
   end
 
   it 'creates user and group for Tutorial A' do
@@ -114,7 +114,7 @@ describe 'python-webapp-test::tutorial_c' do
   it 'checks out Tutorial C' do
     expect(chef_run).to sync_git('/opt/tutorial_c').with(
       repository: 'https://github.com/osuosl/python-test-apps.git',
-      checkout_branch: 'cookbook_test')
+      revision: 'cookbook_test')
   end
 
   it 'creates directory for Tutorial C' do
