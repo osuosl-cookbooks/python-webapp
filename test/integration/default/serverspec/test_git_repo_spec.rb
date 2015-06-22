@@ -15,8 +15,9 @@ describe file('/opt/tutorial_a/source/.git') do
 end
 
 # Test that the right revision has been checked out
-describe file('/opt/tutorial_a/source/.git/HEAD') do
-  its(:content) { should match(/cookbook_test/) }
+describe command('cd /opt/tutorial_a/source/ && '\
+  'diff <(git rev-parse HEAD) <(git rev-parse origin/cookbook_test)') do
+  its(:stdout) { should match '' }
 end
 
 # Test that the git repository's directory is properly set up
@@ -34,6 +35,7 @@ describe file('/opt/tutorial_b/source/.git') do
 end
 
 # Test that the right revision has been checked out
-describe file('/opt/tutorial_b/source/.git/HEAD') do
-  its(:content) { should match(/django/) }
+describe command('cd /opt/tutorial_b/source/ && '\
+  'diff <(git rev-parse HEAD) <(git rev-parse origin/django)') do
+  its(:stdout) { should match '' }
 end
