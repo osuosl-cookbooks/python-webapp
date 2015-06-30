@@ -44,6 +44,9 @@ platforms:
   driver_config:
     username: ubuntu
     image_ref: "Ubuntu 14.04"
+  run_list:
+   - recipe[apt]
+   - recipe[python-webapp-test::default]
 
 - name: ubuntu-12.04
   driver_plugin: openstack
