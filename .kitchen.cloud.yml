@@ -46,7 +46,6 @@ platforms:
     image_ref: "Ubuntu 14.04"
   run_list:
    - recipe[apt]
-   - recipe[python-webapp-test::default]
 
 - name: ubuntu-12.04
   driver_plugin: openstack
@@ -55,7 +54,6 @@ platforms:
     image_ref: "Ubuntu 12.04"
   run_list:
     - recipe[apt]
-    - recipe[python-webapp-test::default]
 
 suites:
 - name: default
