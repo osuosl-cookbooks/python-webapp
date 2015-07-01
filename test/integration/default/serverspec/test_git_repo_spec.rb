@@ -1,4 +1,5 @@
 require 'serverspec'
+set :backend, :exec
 
 # Test that the git repository's directory is properly set up
 describe file('/opt/tutorial_a/source') do
