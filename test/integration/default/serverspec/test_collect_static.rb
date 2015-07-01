@@ -1,4 +1,5 @@
 require 'serverspec'
+set :backend, :exec
 
 # Test that the directory for image files was created
 describe file('/opt/tutorial_a/static_files/img') do

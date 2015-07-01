@@ -1,4 +1,5 @@
 require 'serverspec'
+set :backend, :exec
 
 # Test that the correct interpreter is installed
 describe file('/opt/tutorial_a/venv/bin/python2.7') do

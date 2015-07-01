@@ -1,4 +1,5 @@
 require 'serverspec'
+set :backend, :exec
 
 # Check that the configuration file is properly set up with default values
 describe file('/opt/tutorial_a/config.yml') do

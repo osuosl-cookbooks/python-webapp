@@ -41,10 +41,10 @@ action :install do
 
   # If the new_resource.path is nil set the install path to
   # `/opt/name_attribute`
-  path = new_resource.path || "/opt/#{ new_resource.name }"
+  path = new_resource.path || "/opt/#{new_resource.name}"
 
   if new_resource.virtualenv_path.nil?
-    virtualenv_path = "/opt/#{ new_resource.name }/venv"
+    virtualenv_path = "/opt/#{new_resource.name}/venv"
   else
     virtualenv_path = new_resource.virtualenv_path
   end
@@ -52,7 +52,7 @@ action :install do
   # If the config_destination is nil, as by default, default to
   # /opt/<path>/settings.py
   if new_resource.config_destination.nil?
-    config_destination = "#{ path }/settings.py"
+    config_destination = "#{path}/settings.py"
   else
     config_destination = new_resource.config_destination
   end
@@ -76,7 +76,7 @@ action :install do
   git path do
     action :sync
     repository new_resource.repository
-    checkout_branch new_resource.revision
+    revision new_resource.revision
     destination "#{path}/source"
     user new_resource.owner
     group new_resource.group
@@ -97,7 +97,7 @@ action :install do
   # If a requirements file has been specified, use pip.
   # otherwise use the setup.py
   if new_resource.requirements_file.nil?
-    bash "Install python dependencies #{new_resource.name }" do
+    bash "Install python dependencies #{new_resource.name}" do
       user new_resource.owner
       cwd "#{path}/source"
       code <<-EOH
@@ -106,7 +106,7 @@ action :install do
     end
 
   else
-    python_pip "#{ path }/source/#{ new_resource.requirements_file }" do
+    python_pip "#{path}/source/#{new_resource.requirements_file}" do
       action :install
       options '-r'
       virtualenv virtualenv_path
