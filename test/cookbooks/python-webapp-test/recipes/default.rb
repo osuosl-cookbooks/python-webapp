@@ -41,7 +41,7 @@ python_webapp 'tutorial_a' do
   repository 'https://github.com/osuosl/python-test-apps.git'
 
   config_template 'config.yml.erb'
-  config_destination "#{path}/config.yml"
+  config_destination "#{path}/config/config.yml"
   config_vars hash
   django_migrate true
   django_collectstatic true

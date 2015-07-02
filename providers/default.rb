@@ -82,9 +82,18 @@ action :install do
     group new_resource.group
   end
 
+  # Create config directory if needed.
+  config_directory = ::File.dirname(config_destination)
+  directory config_directory do
+    not_if { new_resource.config_template.nil? }
+    group new_resource.group
+    owner new_resource.owner
+    recursive true
+  end
+
   # If a config file template has been specified, create it.
   template new_resource.config_template do
-    only_if { !new_resource.config_template.nil? }
+    not_if { new_resource.config_template.nil? }
     action :create
     source new_resource.config_template
     path config_destination
