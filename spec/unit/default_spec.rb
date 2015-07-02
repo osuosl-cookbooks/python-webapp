@@ -42,9 +42,14 @@ describe 'python-webapp-test::default' do
       owner: 'chef', group: 'chef')
 
     # TODO: we should render the passed-in settings
-    expect(chef_run).to render_file('/opt/tutorial_a/config.yml')
+    expect(chef_run).to render_file('/opt/tutorial_a/config/config.yml')
     expect(chef_run).to render_file(
       '/opt/tutorial_b/settings.py')
+  end
+
+  it 'creates config directory for Tutorial A' do
+    expect(chef_run).to create_directory('/opt/tutorial_a/config').with(
+      owner: 'tutorial_a', group: 'tutorial_a', recursive: true)
   end
 
   it 'installs Tutorial A with setup.py' do
