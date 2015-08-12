@@ -143,3 +143,20 @@ describe 'python-webapp-test::tutorial_c' do
     expect(chef_run).not_to include_recipe('supervisor')
   end
 end
+
+describe 'python-webapp-test::tutorial_d' do
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(
+      step_into: ['python_webapp']).converge(described_recipe)
+  end
+
+  it 'installs and sets up supervisor for Tutorial D' do
+    expect(chef_run)
+      .to enable_supervisor_service('tutorial_d').with(
+        command: '/opt/tutorial_d/venv/bin/gunicorn' \
+          ' tutorial_d.wsgi:application' \
+          ' -c /opt/tutorial_d/gunicorn_config.py',
+        autorestart: true,
+        directory: '/opt/tutorial_d/source')
+  end
+end
