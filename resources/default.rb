@@ -43,6 +43,10 @@ attribute :config_template, 'kind_of' => [String, NilClass],
 attribute :config_destination, 'kind_of' => [String, NilClass], :default => nil
 attribute :config_vars, 'kind_of' => Hash
 
+# Port gunicorn will run on. If not nil, supervisor and gunicorn are installed
+attribute :gunicorn_port, 'kind_of' => [Integer, NilClass], :default => nil
+attribute :wsgi_module, 'kind_of' => [String, NilClass], :default => nil
+
 # If this is set, install that requirements file. If it is not, install a
 # setup.py. If the setup.py does not exist, fail.
 attribute :requirements_file, 'kind_of' => [String, NilClass], :default => nil
@@ -55,5 +59,3 @@ attribute :django_collectstatic, 'kind_of' => [TrueClass, FalseClass],
                                  :default => false
 
 attribute :interpreter, 'kind_of' => String, :default => 'python'
-
-attribute :gunicorn_port, 'kind_of' => [Integer, NilClass], :default => nil

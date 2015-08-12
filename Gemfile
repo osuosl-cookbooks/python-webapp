@@ -15,6 +15,7 @@ gem 'berkshelf'
 # end
 
 gem 'test-kitchen'
+gem 'kitchen-openstack'
 gem 'kitchen-vagrant'
 gem 'rubocop'
 gem 'foodcritic'

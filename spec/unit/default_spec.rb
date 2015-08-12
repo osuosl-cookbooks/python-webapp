@@ -86,7 +86,7 @@ describe 'python-webapp-test::default' do
     expect(chef_run)
       .to enable_supervisor_service('tutorial_a').with(
         command: '/opt/tutorial_a/venv/bin/gunicorn' \
-          ' tutorial_a.wsgi:application' \
+          ' wsgi:app' \
           ' -c /opt/tutorial_a/gunicorn_config.py',
         autorestart: true,
         directory: '/opt/tutorial_a/source')
