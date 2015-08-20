@@ -99,12 +99,12 @@ More examples of the python-webapp's usage can be found in this
 ### Notes
 
 **Sane Defaults:**
-* `path` is calculated as `/opt/${ project_name }`
-* `virtualenv_path` is calculated to be `/opt/${ project_name }/venv`
-* `config_destination` is calculated to be `${ path }/settings.py`
+* `path` is calculated as `/opt/#{ project_name }`
+* `virtualenv_path` is calculated to be `/opt/#{ project_name }/venv`
+* `config_destination` is calculated to be `#{ path }/settings.py`
 * `requirements_file` is calculated to be `setup.py`
 * `config_template` is calculated to be `settings.py.erb`
-* `wsgi_module` is calculated to be `${project_name }.wsgi:application`
+* `wsgi_module` is calculated to be `#{project_name }.wsgi:application`
 
 **Python Versions:** If you are using a version of python in `interpreter` that
 does not come by default on your system you have to install this seperately;
