@@ -154,11 +154,8 @@ action :install do
       listen "0.0.0.0:#{new_resource.gunicorn_port}"
     end
 
-    if new_resource.wsgi_module.nil?
-      wsgi_module = "#{new_resource.name}.wsgi:application"
-    else
-      wsgi_module = new_resource.wsgi_module
-    end
+    wsgi_module = new_resource.wsgi_module ||
+                  "#{new_resource.name}.wsgi:application"
 
     supervisor_service new_resource.name do
       command "#{virtualenv_path}/bin/gunicorn " \
