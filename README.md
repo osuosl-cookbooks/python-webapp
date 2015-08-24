@@ -40,6 +40,7 @@ Option                  | Type      | Description                               
 `:django_collectstatic` | Boolean   | Whether or not to run django collectstatic    | `false`
 `:interpreter`          | String    | Python command (python, python3, etc)         | `python`
 `:gunicorn_port`        | Int/Nil   | Port to run gunicorn on                       | `nil`
+`:wsgi_module`          | String/Nil| wsgi module and variable for gunicorn to use  | `nil` with a [calculated default](#notes).
 
 For more information on some of these resources (and the sane defaults
 python-webapp sets in case of certain values being) see the [Notes
@@ -48,7 +49,7 @@ section](#notes) below.
 ### Example
 
 **SETUP:** Before you can use the python-webapp cookbook add the following
-informtion to the corresponding files:
+information to the corresponding files:
 
 * Add `depends 'python-webapp'` to your metadata.rb.
 * Add `cookbook 'python-webapp', git:
@@ -100,9 +101,10 @@ More examples of the python-webapp's usage can be found in this
 **Sane Defaults:**
 * `path` is calculated as `/opt/#{ project_name }`
 * `virtualenv_path` is calculated to be `/opt/#{ project_name }/venv`
-* `config_destination` is calculated to be `${ path }/settings.py`
+* `config_destination` is calculated to be `#{ path }/settings.py`
 * `requirements_file` is calculated to be `setup.py`
 * `config_template` is calculated to be `settings.py.erb`
+* `wsgi_module` is calculated to be `#{project_name }.wsgi:application`
 
 **Python Versions:** If you are using a version of python in `interpreter` that
 does not come by default on your system you have to install this seperately;

@@ -110,7 +110,7 @@ action :install do
       user new_resource.owner
       cwd "#{path}/source"
       code <<-EOH
-        #{virtualenv_path}/bin/python setup.py install
+        #{virtualenv_path}/bin/python setup.py install # ~FC002
       EOH
     end
 
@@ -127,7 +127,7 @@ action :install do
     user new_resource.owner
     cwd "#{path}/source"
     code <<-EOH
-      #{virtualenv_path}/bin/python manage.py migrate --noinput
+      #{virtualenv_path}/bin/python manage.py migrate --noinput # ~FC002
     EOH
     only_if { new_resource.django_migrate }
   end
@@ -138,7 +138,7 @@ action :install do
     user new_resource.owner
     cwd "#{path}/source"
     code <<-EOH
-      #{virtualenv_path}/bin/python manage.py collectstatic --noinput
+      #{virtualenv_path}/bin/python manage.py collectstatic --noinput # ~FC002
     EOH
     only_if { new_resource.django_collectstatic }
   end
@@ -154,9 +154,12 @@ action :install do
       listen "0.0.0.0:#{new_resource.gunicorn_port}"
     end
 
+    wsgi_module = new_resource.wsgi_module ||
+                  "#{new_resource.name}.wsgi:application"
+
     supervisor_service new_resource.name do
       command "#{virtualenv_path}/bin/gunicorn " \
-        "#{new_resource.name}.wsgi:application -c #{path}/gunicorn_config.py"
+        "#{wsgi_module} -c #{path}/gunicorn_config.py"
       autorestart true
       directory "#{path}/source"
     end

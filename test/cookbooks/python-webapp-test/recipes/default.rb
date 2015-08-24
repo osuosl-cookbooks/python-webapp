@@ -47,6 +47,7 @@ python_webapp 'tutorial_a' do
   django_collectstatic true
   interpreter 'python2.7'
   revision 'cookbook_test'
+  wsgi_module 'wsgi:app'
 
   gunicorn_port 8888
 end
