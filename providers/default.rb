@@ -162,6 +162,7 @@ action :install do
         "#{wsgi_module} -c #{path}/gunicorn_config.py"
       autorestart true
       directory "#{path}/source"
+      action [:enable, :restart]
     end
   end
 

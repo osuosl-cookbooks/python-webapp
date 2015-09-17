@@ -90,6 +90,7 @@ describe 'python-webapp-test::default' do
           ' -c /opt/tutorial_a/gunicorn_config.py',
         autorestart: true,
         directory: '/opt/tutorial_a/source')
+    expect(chef_run).to restart_supervisor_service('tutorial_a')
   end
 
   it 'installs gunicorn to Tutorial A virtualenv' do
