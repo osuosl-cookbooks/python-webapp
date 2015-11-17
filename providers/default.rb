@@ -126,9 +126,8 @@ action :install do
   bash "run migrations #{new_resource.name}" do
     user new_resource.owner
     cwd "#{path}/source"
-    code <<-EOH
-      #{virtualenv_path}/bin/python manage.py migrate --noinput # ~FC002
-    EOH
+    code "#{virtualenv_path}/bin/python #{new_resource.managepy} " \
+      'migrate --noinput'
     only_if { new_resource.django_migrate }
   end
 
@@ -137,9 +136,8 @@ action :install do
   bash "collect static resources #{new_resource.name}" do
     user new_resource.owner
     cwd "#{path}/source"
-    code <<-EOH
-      #{virtualenv_path}/bin/python manage.py collectstatic --noinput # ~FC002
-    EOH
+    code "#{virtualenv_path}/bin/python #{new_resource.managepy}" \
+      'collectstatic --noinput'
     only_if { new_resource.django_collectstatic }
   end
 

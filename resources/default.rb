@@ -31,6 +31,7 @@ attribute :group, 'kind_of' => String, :default => 'chef'
 # The information necessary to check out the code
 attribute :repository, 'kind_of' => String
 attribute :revision, 'kind_of' => String, :default => 'master'
+attribute :managepy, 'kind_of' => String, :default => 'manage.py'
 
 # Location of the virtualenv
 attribute :virtualenv_path, 'kind_of' => [String, NilClass], :default => nil
