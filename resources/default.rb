@@ -52,6 +52,11 @@ attribute :wsgi_module, kind_of: [String, NilClass], default: nil
 # setup.py. If the setup.py does not exist, fail.
 attribute :requirements_file, kind_of: [String, NilClass], default: nil
 
+# An array of additional packages to install. Useful for specifying
+# non-necessary that aren't necessarily in the requirements
+attribute :pip_packages, kind_of: [Array, NilClass], required: false,
+                         default: nil
+
 # These attributes will only work for Django apps
 attribute :django_migrate, kind_of: [TrueClass, FalseClass],
                            default: false

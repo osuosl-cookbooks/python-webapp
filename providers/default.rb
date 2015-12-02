@@ -122,6 +122,15 @@ action :install do
     end
   end
 
+  unless new_resource.pip_packages.nil?
+    new_resource.pip_packages.each do |pkg|
+      python_pip pkg do
+        action :install
+        virtualenv virtualenv_path
+      end
+    end
+  end
+
   # Run django migrations if the django_migrate flag is set
   bash "run migrations #{new_resource.name}" do
     user new_resource.owner
