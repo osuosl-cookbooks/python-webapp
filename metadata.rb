@@ -13,5 +13,5 @@ depends 'supervisor'
 
 supports         'centos', '~> 6'
 supports         'centos', '~> 7'
-supports         'ubuntu', '14.04'
 supports         'ubuntu', '12.04'
+supports         'ubuntu', '14.04'
