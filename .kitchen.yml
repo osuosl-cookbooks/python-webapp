@@ -1,21 +1,10 @@
 ---
-driver:
-  name: vagrant
-
 provisioner:
   name: chef_solo
   encrypted_data_bag_secret_key_path: test/integration/encrypted_data_bag_secret
   data_bags_path: test/integration/data_bags
 
-platforms:
-  - name: centos-6.6
-    run_list:
-      - recipe[python-webapp-test::_centos]
-  - name: centos-7.0
-  - name: ubuntu-14.04
-  - name: ubuntu-12.04
-
 suites:
-- name: default
-  run_list:
-    - recipe[python-webapp-test::default]
+  - name: default
+    run_list:
+      - recipe[python-webapp-test::default]

@@ -10,3 +10,8 @@ depends 'git'
 depends 'gunicorn'
 depends 'python'
 depends 'supervisor'
+
+supports         'centos', '~> 6.0'
+supports         'centos', '~> 7.0'
+supports         'ubuntu', '12.04'
+supports         'ubuntu', '14.04'

@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if node['platform_version'] == '6.6'
+if node['platform_version'] =~ /6\..*/
   include_recipe 'yum-ius'
   include_recipe 'yum-epel'
 
