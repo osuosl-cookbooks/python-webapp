@@ -30,6 +30,8 @@ platforms:
   driver_config:
     username: centos
     image_ref: "CentOS 6.6"
+  transport:
+    username: centos
   run_list:
     - recipe[python-webapp-test::_centos]
 
@@ -38,12 +40,16 @@ platforms:
   driver_config:
     username: centos
     image_ref: "CentOS 7.0"
+  transport:
+    username: centos
 
 - name: ubuntu-14.04
   driver_plugin: openstack
   driver_config:
     username: ubuntu
     image_ref: "Ubuntu 14.04"
+  transport:
+    username: ubuntu
   run_list:
    - recipe[apt]
 
@@ -52,6 +58,8 @@ platforms:
   driver_config:
     username: ubuntu
     image_ref: "Ubuntu 12.04"
+  transport:
+    username: ubuntu
   run_list:
     - recipe[apt]
 
